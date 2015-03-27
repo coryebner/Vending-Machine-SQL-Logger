@@ -12,6 +12,7 @@ public class Rifffish {
 		RequestInterceptor requestInterceptor = new RequestInterceptor() {
 			@Override
 				public void intercept(RequestFacade request) {
+					request.addHeader("Content-Type", "application/json");
 					request.addHeader("X-RIFFFISH-TOKEN", API_TOKEN);
 				}
 			};
