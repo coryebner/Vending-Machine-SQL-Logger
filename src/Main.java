@@ -3,15 +3,14 @@ import rifffish.*;
 
 public class Main {
 	public static void main(String[] args) {
-		Rifffish r = new Rifffish("rsh_pANlj9XQGDg7y2lNrSUIQgtt", "1");
+		Rifffish r = new Rifffish("rsh_zft5hPlzHLAHfLHmJzeekwtt");
 				
 		Transaction t = new Transaction();
-		t.machine_id = 2;
-		t.product_id = 2;
+		t.machine_id = 1;
+		t.product_id = 1;
 		t.quantity = 1;
-		t.payment_method = 4;
+		t.payment_method = 2;
 		t.status = true;
-		
 		r.log(t); 		
 	}
 }
