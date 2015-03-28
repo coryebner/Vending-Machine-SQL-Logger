@@ -1,5 +1,7 @@
 package rifffish;
 
+import java.sql.Timestamp;
+
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import rifffish.endpoints.TransactionsService;
@@ -25,6 +27,10 @@ public class Rifffish {
 	
 	public void log(Transaction t) {
 		TransactionsService service = restAdapter.create(TransactionsService.class);
+		
+		java.util.Date date= new java.util.Date();
+		t.timestamp = (new Timestamp(date.getTime())).toString();
+		
 		Transaction tOut = service.createTransaction(t);
 		
 		System.out.println(tOut.id);

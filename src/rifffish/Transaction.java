@@ -7,6 +7,6 @@ public class Transaction {
 	public Integer quantity = null;
 	public Integer payment_method = null;
 	public Boolean status = null;
-	
+	public String timestamp = null;
 	public Object error = null;
 }
