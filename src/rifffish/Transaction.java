@@ -17,8 +17,15 @@ public class Transaction {
 	public String timestamp = null;
 	public Object error = null;
 	
-	private boolean validated = false;
-	
+	/**
+	 * Transaction Object. All params are required.
+	 * See API/SDK documentation for more information
+	 * 
+	 * @param MachineId, Integer from the Machine ID
+	 * @param ProductId, Integer from the Product ID
+	 * @param PaymentMethod, ENUM of a PaymentMethod see API for more details
+	 * @param PaymentStatus, Boolean of whether the payment was completed or not
+	 */
 	public Transaction(Integer MachineId, Integer ProductId, PaymentMethod PaymentMethod, Boolean PaymentStatus) {
 		machine_id = MachineId;
 		product_id = ProductId;

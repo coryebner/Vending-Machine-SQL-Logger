@@ -14,6 +14,8 @@ public class Rifffish {
 	
 	/**
 	 * Rifffish is a powerful way to manage your vending machines
+	 * See API/SDK documentation for more information
+	 * 
 	 * @param API_TOKEN, found in profile page under API keys
 	 */
 	public Rifffish(final String API_TOKEN) {
@@ -39,14 +41,16 @@ public class Rifffish {
 	 * Log for Transactions 
 	 * Logs a Transaction to our API
 	 * @param transaction, A transaction that is being logged
+	 * @return Error, returns null when transaction was logged successfully, 
+	 * 		   else returns an error (which could be parsed or just printed)
 	 */
-	public void log(Transaction t) {
+	public Object log(Transaction t) {
 		TransactionsService service = restAdapter.create(TransactionsService.class);
 		
-		java.util.Date date= new java.util.Date();
+		java.util.Date date = new java.util.Date();
 		t.timestamp = (new Timestamp(date.getTime())).toString();
-		
-		Transaction tOut = service.createTransaction(t);	
+				
+		return (service.createTransaction(t)).error;
  	}
 	
 	
