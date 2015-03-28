@@ -8,9 +8,19 @@ import rifffish.endpoints.TransactionsService;
 
 public class Rifffish {
 	private RestAdapter restAdapter = null;
-	private final static String RIFFFISH_API_URL = "http://localhost:3000/api";
-		
+	private final static String RIFFFISH_API_URL = "http://rifffish.com/api";
+	
+	public static enum PaymentMethod {COIN, CREDIT_CARD};
+	
+	/**
+	 * Rifffish is a powerful way to manage your vending machines
+	 * @param API_TOKEN, found in profile page under API keys
+	 */
 	public Rifffish(final String API_TOKEN) {
+		this(API_TOKEN, RIFFFISH_API_URL);		
+	}
+	
+	public Rifffish(final String API_TOKEN, String API_URL) {
 		RequestInterceptor requestInterceptor = new RequestInterceptor() {
 			@Override
 				public void intercept(RequestFacade request) {
@@ -20,24 +30,26 @@ public class Rifffish {
 			};
 			
 		restAdapter = new RestAdapter.Builder()
-	    .setEndpoint(RIFFFISH_API_URL)
+	    .setEndpoint(API_URL)
 	    .setRequestInterceptor(requestInterceptor)
-	    .build();		
+	    .build();
 	}
 	
+	/**
+	 * Log for Transactions 
+	 * Logs a Transaction to our API
+	 * @param transaction, A transaction that is being logged
+	 */
 	public void log(Transaction t) {
 		TransactionsService service = restAdapter.create(TransactionsService.class);
 		
 		java.util.Date date= new java.util.Date();
 		t.timestamp = (new Timestamp(date.getTime())).toString();
 		
-		Transaction tOut = service.createTransaction(t);
-		
-		System.out.println(tOut.id);
-		
-		System.out.println(tOut.error);
-		
+		Transaction tOut = service.createTransaction(t);	
  	}
+	
+	
 	
 
 	
