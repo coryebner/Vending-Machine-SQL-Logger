@@ -30,7 +30,8 @@ public class Transaction {
 		machine_id = MachineId;
 		product_id = ProductId;
 		payment_method = parsePaymentMethod(PaymentMethod);
-				
+		quantity = 1;
+		status = PaymentStatus;	
 	}
 	
 	private Integer parsePaymentMethod(PaymentMethod pMethod) {

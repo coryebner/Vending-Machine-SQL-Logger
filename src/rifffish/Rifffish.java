@@ -42,15 +42,24 @@ public class Rifffish {
 	 * Logs a Transaction to our API
 	 * @param transaction, A transaction that is being logged
 	 * @return Error, returns null when transaction was logged successfully, 
-	 * 		   else returns an error (which could be parsed or just printed)
+	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
-	public Object log(Transaction t) {
-		TransactionsService service = restAdapter.create(TransactionsService.class);
+	public Error log(Transaction t) {
+		Error error = null;
 		
+		TransactionsService service = restAdapter.create(TransactionsService.class);
+
 		java.util.Date date = new java.util.Date();
 		t.timestamp = (new Timestamp(date.getTime())).toString();
-				
-		return (service.createTransaction(t)).error;
+		
+		
+		try {
+			service.createTransaction(t);
+		} catch(Exception e) {
+			error = new Error("400 - Bad Request. Transaction Malformed.");
+		}
+		
+		return error;
  	}
 	
 	
