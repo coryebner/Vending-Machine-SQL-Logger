@@ -3,16 +3,15 @@ package rifffish;
 import rifffish.Rifffish.PaymentMethod;
 
 /**
- * 
- * @author tamcgoey
- *
+ * Represents a Transaction Object
+ * (converted from json to a Java object - gson)
  */
 public class Transaction {
 	public Integer id = null;
 	public Integer machine_id = null;
 	public Integer product_id = null;
 	public Integer quantity = null;
-	public Integer payment_method = null;
+	public String payment_method = null;
 	public Boolean status = null;
 	public String timestamp = null;
 	public Object error = null;
@@ -34,16 +33,16 @@ public class Transaction {
 		status = PaymentStatus;	
 	}
 	
-	private Integer parsePaymentMethod(PaymentMethod pMethod) {
+	private String parsePaymentMethod(PaymentMethod pMethod) {
 		switch (pMethod) {
 			case COIN: 
-				return 1;
+				return "coins";
 				
 			case CREDIT_CARD:				
-				return 2;
+				return "credit_cards";
 				
 			default:
-				return 0;
+				return null;
 		}
 	}
 }

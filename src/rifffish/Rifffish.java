@@ -37,11 +37,6 @@ public class Rifffish {
 	    .build();
 	}
 	
-	// Used for Exporting a Fat JAR
-	public static void main(String args[]) {
-		System.out.println("Visit our Developer Documentation - developer.rifffish.com");
-	}
-	
 	/**
 	 * Log for Transactions 
 	 * Logs a Transaction to our API

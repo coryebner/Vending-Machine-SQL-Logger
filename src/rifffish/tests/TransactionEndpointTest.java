@@ -20,7 +20,6 @@ public class TransactionEndpointTest {
 
 	@Test
 	public void testWellFormedTransactionStatusPassed() {
-		System.out.println(r.log(new Transaction(1, 1, PaymentMethod.COIN, true)));
 		assertEquals(null, r.log(new Transaction(1, 1, PaymentMethod.COIN, true)));
 	}
 	
