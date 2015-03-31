@@ -22,14 +22,14 @@ public class Logger{
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
 	 */
-	Logger(){
+	Logger(String databaseUrl, String apiKey){
 		this.scheme = new OfflineScheme();
 	}
 	
 	/**
 	 * Creates a logger that uses an Offline logging scheme
 	 */
-	Logger(OfflineScheme scheme){
+	Logger(OfflineScheme scheme, String databaseUrl, String apiKey){
 		this.scheme = new OfflineScheme();
 	}
 	
@@ -38,7 +38,7 @@ public class Logger{
 	 * 
 	 * @param Scheme How often to send logs to the server. Options = OFFLINE, IMMEDIATLY, PRESPECIFIED, SETTIME
 	 */
-	Logger(ImmediateScheme scheme){
+	Logger(ImmediateScheme scheme, String databaseUrl, String apiKey){
 		this.scheme = scheme;
 		
 		// get VendingMachineID from the server
@@ -49,7 +49,7 @@ public class Logger{
 	 * 
 	 * @param scheme
 	 */
-	Logger(PrespecifiedScheme scheme){
+	Logger(PrespecifiedScheme scheme, String databaseUrl, String apiKey){
 		this.scheme = scheme;
 		
 	}
@@ -59,7 +59,7 @@ public class Logger{
 	 * 
 	 * @param scheme
 	 */
-	Logger(SetTimeScheme scheme){
+	Logger(SetTimeScheme scheme, String databaseUrl, String apiKey){
 		this.scheme = scheme;
 	}
 	
