@@ -1,6 +1,7 @@
 package Logger;
 
 import Schemes.ImmediateScheme;
+import Schemes.OfflineScheme;
 import Schemes.PrespecifiedScheme;
 import Schemes.SetTimeScheme;
 import rifffish.Transaction;
@@ -18,12 +19,18 @@ public class Logger{
 	private Object scheme;
 	private int vendingMachineID;
 	
-	
 	/**
-	 * Creates a logger that uses a Offline logging scheme
+	 * Creates a logger that uses a default Offline logging scheme
 	 */
 	Logger(){
-		
+		this.scheme = new OfflineScheme();
+	}
+	
+	/**
+	 * Creates a logger that uses an Offline logging scheme
+	 */
+	Logger(OfflineScheme scheme){
+		this.scheme = new OfflineScheme();
 	}
 	
 	/**
@@ -32,6 +39,7 @@ public class Logger{
 	 * @param Scheme How often to send logs to the server. Options = OFFLINE, IMMEDIATLY, PRESPECIFIED, SETTIME
 	 */
 	Logger(ImmediateScheme scheme){
+		this.scheme = scheme;
 		
 		// get VendingMachineID from the server
 	}
@@ -42,6 +50,7 @@ public class Logger{
 	 * @param scheme
 	 */
 	Logger(PrespecifiedScheme scheme){
+		this.scheme = scheme;
 		
 	}
 	
@@ -51,7 +60,7 @@ public class Logger{
 	 * @param scheme
 	 */
 	Logger(SetTimeScheme scheme){
-		
+		this.scheme = scheme;
 	}
 	
 	/**
