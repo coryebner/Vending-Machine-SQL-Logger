@@ -1,7 +1,8 @@
 package Schemes;
 
 public class OfflineScheme{
-	OfflineScheme(){
+	
+	public OfflineScheme(){
 		
 	}
 }
