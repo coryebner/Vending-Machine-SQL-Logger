@@ -1,8 +1,8 @@
 package Schemes;
 
-public class SetTimeScheme{
+public class SetTimeScheme extends OfflineScheme{
 	
 	public SetTimeScheme(){
-		
+		this.type = "SETTIME";
 	}
 }
