@@ -10,7 +10,7 @@ import rifffish.Transaction;
  * 
  * @author cory
  * 
- * The client side log functions.
+ * The client side log functions for interactiing with the rifffish database.
  *
  */
 
@@ -18,18 +18,19 @@ public class Logger{
 	
 	private Object scheme;
 	private int vendingMachineID;
+	private static final String RIFFFISH_API_URL = "http://rifffish.com/api";
 	
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
 	 */
-	Logger(String databaseUrl, String apiKey){
+	Logger(){
 		this.scheme = new OfflineScheme();
 	}
 	
 	/**
 	 * Creates a logger that uses an Offline logging scheme
 	 */
-	Logger(OfflineScheme scheme, String databaseUrl, String apiKey){
+	Logger(OfflineScheme scheme){
 		this.scheme = new OfflineScheme();
 	}
 	
@@ -38,7 +39,7 @@ public class Logger{
 	 * 
 	 * @param Scheme How often to send logs to the server. Options = OFFLINE, IMMEDIATLY, PRESPECIFIED, SETTIME
 	 */
-	Logger(ImmediateScheme scheme, String databaseUrl, String apiKey){
+	Logger(ImmediateScheme scheme, String apiKey){
 		this.scheme = scheme;
 		
 		// get VendingMachineID from the server
@@ -49,7 +50,7 @@ public class Logger{
 	 * 
 	 * @param scheme
 	 */
-	Logger(PrespecifiedScheme scheme, String databaseUrl, String apiKey){
+	Logger(PrespecifiedScheme scheme, String apiKey){
 		this.scheme = scheme;
 		
 	}
@@ -59,7 +60,7 @@ public class Logger{
 	 * 
 	 * @param scheme
 	 */
-	Logger(SetTimeScheme scheme, String databaseUrl, String apiKey){
+	Logger(SetTimeScheme scheme, String apiKey){
 		this.scheme = scheme;
 	}
 	
