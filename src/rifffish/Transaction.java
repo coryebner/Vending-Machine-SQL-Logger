@@ -8,7 +8,6 @@ import rifffish.Rifffish.PaymentMethod;
  */
 public class Transaction {
 	public Integer id = null;
-	public Integer machine_id = null;
 	public Integer product_id = null;
 	public Integer quantity = null;
 	public String payment_method = null;
@@ -20,13 +19,11 @@ public class Transaction {
 	 * Transaction Object. All params are required.
 	 * See API/SDK documentation for more information
 	 * 
-	 * @param MachineId, Integer from the Machine ID
 	 * @param ProductId, Integer from the Product ID
 	 * @param PaymentMethod, ENUM of a PaymentMethod see API for more details
 	 * @param PaymentStatus, Boolean of whether the payment was completed or not
 	 */
-	public Transaction(Integer MachineId, Integer ProductId, PaymentMethod PaymentMethod, Boolean PaymentStatus) {
-		machine_id = MachineId;
+	public Transaction(Integer ProductId, PaymentMethod PaymentMethod, Boolean PaymentStatus) {
 		product_id = ProductId;
 		payment_method = parsePaymentMethod(PaymentMethod);
 		quantity = 1;
