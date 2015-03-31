@@ -1,10 +1,13 @@
-package Logger;
+package logger;
 
-import Schemes.ImmediateScheme;
-import Schemes.OfflineScheme;
-import Schemes.PrespecifiedScheme;
-import Schemes.SetTimeScheme;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
+import retrofit.RequestInterceptor.RequestFacade;
 import rifffish.Transaction;
+import schemes.ImmediateScheme;
+import schemes.OfflineScheme;
+import schemes.PrespecifiedScheme;
+import schemes.SetTimeScheme;
 
 /**
  * 
@@ -16,9 +19,10 @@ import rifffish.Transaction;
 
 public class Logger{
 	
+	private static final String RIFFFISH_API_URL = "http://rifffish.com/api";
 	private Object scheme;
 	private int vendingMachineID;
-	private static final String RIFFFISH_API_URL = "http://rifffish.com/api";
+	private RestAdapter restAdapter = null;
 	
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
@@ -62,6 +66,21 @@ public class Logger{
 	 */
 	Logger(SetTimeScheme scheme, String apiKey){
 		this.scheme = scheme;
+	}
+	
+	public void Rifffish(final String API_TOKEN, String API_URL) {
+		RequestInterceptor requestInterceptor = new RequestInterceptor() {
+			@Override
+				public void intercept(RequestFacade request) {
+					request.addHeader("Content-Type", "application/json");
+					request.addHeader("X-RIFFFISH-TOKEN", API_TOKEN);
+				}
+			};
+			
+		restAdapter = new RestAdapter.Builder()
+	    .setEndpoint(API_URL)
+	    .setRequestInterceptor(requestInterceptor)
+	    .build();
 	}
 	
 	/**

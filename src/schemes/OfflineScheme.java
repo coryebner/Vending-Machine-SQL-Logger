@@ -1,4 +1,4 @@
-package Schemes;
+package schemes;
 
 public class OfflineScheme{
 	protected String type;
