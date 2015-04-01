@@ -2,8 +2,6 @@ package logger;
 
 import java.sql.Timestamp;
 
-import org.hamcrest.core.IsInstanceOf;
-
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RequestInterceptor.RequestFacade;
@@ -26,17 +24,18 @@ import schemes.SetTimeScheme;
 
 public class Logger{
 	
-	private static final String RIFFFISH_API_URL = "http://rifffish.com/api";
+	private static final String RIFFFISH_API_URL = "http://rifffish.com/";
 	private static final String API_KEY = "rsh_WTYxjQcwJhF1a26nPibqLwtt";
 	private Object scheme;
 	private int vendingMachineID;
 	private RestAdapter restAdapter = null;
 	private Rifffish r = null;
+	public Error lastError = null;
 	
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
 	 */
-	Logger(){
+	public Logger(){
 		this.scheme = new OfflineScheme();
 		r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 	}
@@ -44,7 +43,7 @@ public class Logger{
 	/**
 	 * Creates a logger that uses an Offline logging scheme
 	 */
-	Logger(OfflineScheme scheme){
+	public Logger(OfflineScheme scheme){
 		this.scheme = new OfflineScheme();
 		r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 	}
@@ -52,9 +51,9 @@ public class Logger{
 	/**
 	 * Creates a logger that uses an immediate logging scheme to a remote server
 	 * 
-	 * @param Scheme How often to send logs to the server. Options = OFFLINE, IMMEDIATLY, PRESPECIFIED, SETTIME
+	 * @param Scheme An immediate scheme which sends logs to the server immediatly
 	 */
-	Logger(ImmediateScheme scheme, String apiKey){
+	public Logger(ImmediateScheme scheme){
 		this.scheme = scheme;
 		r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 		
@@ -66,7 +65,7 @@ public class Logger{
 	 * 
 	 * @param scheme
 	 */
-	Logger(PrespecifiedScheme scheme, String apiKey){
+	public Logger(PrespecifiedScheme scheme){
 		this.scheme = scheme;
 		r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 		
@@ -77,7 +76,7 @@ public class Logger{
 	 * 
 	 * @param scheme
 	 */
-	Logger(SetTimeScheme scheme, String apiKey){
+	public Logger(SetTimeScheme scheme){
 		this.scheme = scheme;
 		r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 	}
@@ -95,15 +94,20 @@ public class Logger{
 		//TODO add transaction to the local log
 		
 		if(scheme instanceof ImmediateScheme){
-			sendTransaction(t);
+			System.out.println("sending to server");
+			lastError = sendTransaction(t);
+			
+			//TODO: Add error to the local log
+			if(lastError != null){
+				
+			}
+			
 			
 		}else if(scheme instanceof PrespecifiedScheme){
 			
 		}else if(scheme instanceof SetTimeScheme){
 			
 		}
-		
-		//TODO: Add error to the local log
  	}
 	
 //	/**

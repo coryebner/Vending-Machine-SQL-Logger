@@ -1,0 +1,54 @@
+/**
+ * 
+ */
+package logger.tests;
+
+import static org.junit.Assert.*;
+import logger.Logger;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import rifffish.Rifffish;
+import rifffish.Transaction;
+import rifffish.Rifffish.PaymentMethod;
+import schemes.ImmediateScheme;
+
+/**
+ * @author Cory Ebner
+ *
+ */
+public class LoggerTest {
+	private Logger logger = null;
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		// Local dev testing, API Key will need to be regenerated
+		logger = new Logger(new ImmediateScheme());
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	/**
+	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
+	 */
+	@Test
+	public void testLogTransaction() {
+		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
+		t.id = 4;
+		System.out.println(t.timestamp);
+		logger.log(t);
+		System.out.println(logger.lastError);
+		assertEquals(null, logger.lastError);
+	}
+
+}
