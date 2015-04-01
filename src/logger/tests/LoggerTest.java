@@ -47,7 +47,6 @@ public class LoggerTest {
 		t.id = 4;
 		System.out.println(t.timestamp);
 		logger.log(t);
-		System.out.println(logger.lastError);
 		assertEquals(null, logger.lastError);
 	}
 

@@ -99,7 +99,7 @@ public class Logger{
 			
 			//TODO: Add error to the local log
 			if(lastError != null){
-				
+				System.out.println(lastError);
 			}
 			
 			
