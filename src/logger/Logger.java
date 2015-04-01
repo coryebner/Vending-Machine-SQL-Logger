@@ -95,23 +95,12 @@ public class Logger{
 		//TODO add transaction to the local log
 		
 		if(scheme instanceof ImmediateScheme){
+			sendTransaction(t);
 			
 		}else if(scheme instanceof PrespecifiedScheme){
 			
 		}else if(scheme instanceof SetTimeScheme){
 			
-		}
-		
-		TransactionsService service = restAdapter.create(TransactionsService.class);
-
-		java.util.Date date = new java.util.Date();
-		t.timestamp = (new Timestamp(date.getTime())).toString();
-		
-		
-		try {
-			service.createTransaction(t);
-		} catch(Exception e) {
-			error = new Error("400 - Bad Request. Transaction Malformed.");
 		}
 		
 		//TODO: Add error to the local log
@@ -135,14 +124,10 @@ public class Logger{
 //		
 //	}
 	
-	private Error sendTransaction(){
+	private Error sendTransaction(Transaction t){
 		Error error = null;
 		
-		TransactionsService service = restAdapter.create(TransactionsService.class);
-
-		java.util.Date date = new java.util.Date();
-		t.timestamp = (new Timestamp(date.getTime())).toString();
-		
+		TransactionsService service = restAdapter.create(TransactionsService.class);		
 		
 		try {
 			service.createTransaction(t);

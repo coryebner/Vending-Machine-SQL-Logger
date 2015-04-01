@@ -1,5 +1,7 @@
 package rifffish;
 
+import java.sql.Timestamp;
+
 import rifffish.Rifffish.PaymentMethod;
 
 /**
@@ -27,7 +29,10 @@ public class Transaction {
 		product_id = ProductId;
 		payment_method = parsePaymentMethod(PaymentMethod);
 		quantity = 1;
-		status = PaymentStatus;	
+		status = PaymentStatus;
+		
+		java.util.Date date = new java.util.Date();
+		this.timestamp = (new Timestamp(date.getTime())).toString();
 	}
 	
 	private String parsePaymentMethod(PaymentMethod pMethod) {
