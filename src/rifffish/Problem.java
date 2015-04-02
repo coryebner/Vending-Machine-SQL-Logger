@@ -1,5 +1,7 @@
 package rifffish;
 
+import java.sql.Timestamp;
+
 import rifffish.Rifffish.PaymentMethod;
 
 /**
@@ -19,6 +21,29 @@ public class Problem {
 	 */
 	public Problem(String description) {
 		this.description = description;	
+		java.util.Date date = new java.util.Date();
+		this.timestamp = (new Timestamp(date.getTime())).toString();
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @return the timestamp
+	 */
+	public String getTimestamp() {
+		return timestamp;
 	}
 	
 }

@@ -61,9 +61,12 @@ public class Rifffish {
 		
 		return error;
  	}
-	
-	
-	
 
-	
+	/**
+	 * @return the restAdapter
+	 */
+	public RestAdapter getRestAdapter() {
+		System.out.println(restAdapter);
+		return restAdapter;
+	}
 }

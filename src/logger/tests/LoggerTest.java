@@ -36,6 +36,7 @@ public class LoggerTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		logger = null;
 	}
 
 	/**
@@ -44,7 +45,7 @@ public class LoggerTest {
 	@Test
 	public void testLogTransaction() {
 		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-		t.id = 4;
+		//t.id = 4;
 		System.out.println(t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);

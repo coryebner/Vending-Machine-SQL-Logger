@@ -47,5 +47,56 @@ public class Transaction {
 				return null;
 		}
 	}
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @return the product_id
+	 */
+	public Integer getProduct_id() {
+		return product_id;
+	}
+
+	/**
+	 * @return the quantity
+	 */
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	/**
+	 * @return the payment_method
+	 */
+	public String getPayment_method() {
+		return payment_method;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public Boolean getStatus() {
+		return status;
+	}
+
+	/**
+	 * @return the timestamp
+	 */
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	/**
+	 * @return the error
+	 */
+	public Object getError() {
+		return error;
+	}
+	
+	
 }
 
