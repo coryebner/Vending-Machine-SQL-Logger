@@ -95,12 +95,13 @@ public class LocalLog{
 	      }
 		
 		try {
-			RandomAccessFile file =  new RandomAccessFile("log.txt", "rw");
+			File theFile = new File("log.txt");
+			RandomAccessFile file =  new RandomAccessFile(theFile, "rw");
 			    String line;
-			    String[] split;
-	            long offset = 0, length = 0;
-	            
-			    while ((line = file.readLine()) != null) {
+			    String[] split;	            
+			    while ((line = file.readLine()) != null && error == null) {
+		    	    long readPos = file.getFilePointer();
+			    	
 			       // process the line.
 			    	split = line.split(",");
 			    	if(split[0].equals("Transaction")){
@@ -115,26 +116,16 @@ public class LocalLog{
 			    		r.log(p);
 			    	}			    	
 			    	
-			    	//if the message was sent to the server successfully remove the line from the file
-			    	if(error == null){
-			    		// Shift remaining lines upwards.
-			    	    long writePos = file.getFilePointer();
-			    	    file.readLine();
-			    	    long readPos = file.getFilePointer();
+			    }
+			    
+			    if(error == null){
+			    	File temporaryFileName = new File("temporaryLog.txt");
+			    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
 
-			    	    byte[] buf = new byte[1024];
-			    	    int n;
-			    	    while (-1 != (n = file.read(buf))) {
-			    	        file.seek(writePos);
-			    	        file.write(buf, 0, n);
-			    	        readPos += n;
-			    	        writePos += n;
-			    	        file.seek(readPos);
-			    	    }
-
-			    	    file.setLength(writePos);
-
-			    	}
+			    	temporaryFile.close();
+			    	               
+			    	theFile.delete();
+			    	temporaryFileName.renameTo(theFile);
 			    }
 			    file.close();
 		} catch (FileNotFoundException e) {
