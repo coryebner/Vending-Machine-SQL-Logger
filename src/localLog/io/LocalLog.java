@@ -2,10 +2,12 @@ package localLog.io;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 
@@ -93,15 +95,17 @@ public class LocalLog{
 	      }
 		
 		try {
-			RandomAccessFile file =  new RandomAccessFile("log.txt", "rws");
+			RandomAccessFile file =  new RandomAccessFile("log.txt", "rw");
 			    String line;
 			    String[] split;
+	            long offset = 0, length = 0;
+	            
 			    while ((line = file.readLine()) != null) {
 			       // process the line.
 			    	split = line.split(",");
 			    	if(split[0].equals("Transaction")){
-			    		Transaction t = new Transaction(Integer.parseInt(split[2]), r.valueOf(split[3]), Boolean.valueOf(split[4]));
-			    		t.id = Integer.parseInt(split[1]);
+			    		Transaction t = new Transaction(Integer.parseInt(split[3]), r.valueOf(split[4]), Boolean.valueOf(split[5]));
+			    		t.id = Integer.parseInt(split[2]);
 			    		t.timestamp = split[6];
 			    		r.log(t);
 			    	}else if(split[0].equals("Problem")){
@@ -109,7 +113,7 @@ public class LocalLog{
 			    		p.timestamp = split[3];
 			    		p.machine_id = Integer.parseInt(split[1]);
 			    		r.log(p);
-			    	}
+			    	}			    	
 			    	
 			    	//if the message was sent to the server successfully remove the line from the file
 			    	if(error == null){
@@ -131,8 +135,8 @@ public class LocalLog{
 			    	    file.setLength(writePos);
 
 			    	}
-			    	file.close();
 			    }
+			    file.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -143,5 +147,25 @@ public class LocalLog{
 
 		available = false;
 		notifyAll();
+	}
+	
+	public synchronized int getNumLines(){
+		int result = 0;
+		
+		try {
+			LineNumberReader  lnr = new LineNumberReader(new FileReader(new File("log.txt")));
+			lnr.skip(Long.MAX_VALUE);
+			result = lnr.getLineNumber();
+			//System.out.println(lnr.getLineNumber() + 1); //Add 1 because line index starts at 0
+			// Finally, the LineNumberReader object should be closed to prevent resource leak
+			lnr.close();
+		} catch (FileNotFoundException e) {
+			result=0;
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

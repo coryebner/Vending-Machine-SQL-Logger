@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import localLog.io.LocalLog;
+import localLog.io.LocalLogReader;
 import localLog.io.LocalLogWriter;
 import retrofit.RestAdapter;
 import rifffish.Error;
@@ -86,12 +87,12 @@ public class Logger{
 	 */
 	public void log(Transaction t) {
 		
-		LocalLogWriter w1 = new LocalLogWriter(localLog,t);
-		//new LocalLog().printToLocalLog(t);
-		w1.start();
-		
 		if (date == null) {
-			if (numberOfTransactions == 0) {
+			if(numberOfTransactions == -1 || numberOfTransactions > 0){
+				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+				//new LocalLog().printToLocalLog(t);
+				w1.start();
+			}else if (numberOfTransactions == 0) {
 				System.out.println("sending to server");
 
 				// Send to server
@@ -99,11 +100,18 @@ public class Logger{
 
 				// Add error to the local log / print error
 				if (lastError != null) {
+					LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+					//new LocalLog().printToLocalLog(t);
+					w1.start();
 					System.out.println(lastError);
 					//new LocalLog().printToLocalLog(new Problem(lastError.toString()));
 				}
-			}else if(currentTransactions >= numberOfTransactions){
+			}
+			
+			if(localLog.getNumLines() >= numberOfTransactions && numberOfTransactions > 0){
 				//TODO: Read from file and send each line to the server
+				LocalLogReader r1 = new LocalLogReader(r, localLog);
+				r1.start();
 			}
 		}
  	}
@@ -116,19 +124,19 @@ public class Logger{
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
 	public void log(Problem t) {		
-		LocalLogWriter w1 = new LocalLogWriter(localLog,t);
-		//new LocalLog().printToLocalLog(t);
-		w1.start();
-		
 		System.out.println("sending to server");
 
-		// Send to server
-		lastError = r.log(t);
+		if (numberOfTransactions != -1) {
+			// Send to server
+			lastError = r.log(t);
 
-		// Add error to the local log / print error
-		if (lastError != null) {
-			System.out.println(lastError);
-			//new LocalLog().printToLocalLog(new Problem(lastError.toString()));
+			// Add error to the local log / print error
+			if (lastError != null) {
+				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+				//new LocalLog().printToLocalLog(t);
+				w1.start();
+				System.out.println(lastError);
+			}
 		}
  	}
 }

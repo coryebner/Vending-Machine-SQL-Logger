@@ -21,6 +21,6 @@ public class LocalLogWriter extends Thread{
 		if(toLog instanceof Transaction)
 			log.printToLocalLog((Transaction)toLog);
 		else if(toLog instanceof Problem)
-			log.printToLocalLog((Transaction)toLog);
+			log.printToLocalLog((Problem)toLog);
 	}
 }
