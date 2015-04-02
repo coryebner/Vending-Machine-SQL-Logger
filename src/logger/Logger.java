@@ -14,10 +14,6 @@ import rifffish.Problem;
 import rifffish.Rifffish;
 import rifffish.Transaction;
 import rifffish.endpoints.TransactionsService;
-import schemes.ImmediateScheme;
-import schemes.OfflineScheme;
-import schemes.PrespecifiedScheme;
-import schemes.SetTimeScheme;
 
 /**
  * 

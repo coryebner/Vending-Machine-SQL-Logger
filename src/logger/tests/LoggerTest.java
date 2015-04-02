@@ -14,7 +14,6 @@ import rifffish.Problem;
 import rifffish.Rifffish;
 import rifffish.Transaction;
 import rifffish.Rifffish.PaymentMethod;
-import schemes.ImmediateScheme;
 
 /**
  * @author Cory Ebner
