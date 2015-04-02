@@ -116,8 +116,10 @@ public class Logger{
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
 	public void log(Problem t) {		
-		new LocalLog().printToLocalLog(t);
-
+		LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+		//new LocalLog().printToLocalLog(t);
+		w1.start();
+		
 		System.out.println("sending to server");
 
 		// Send to server
