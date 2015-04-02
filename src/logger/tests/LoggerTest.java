@@ -58,6 +58,7 @@ public class LoggerTest {
 	@Test
 	public void testLogProblem() {
 		Problem t = new Problem("fail_whale");
+		t.machine_id = 1;
 		System.out.println(t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);

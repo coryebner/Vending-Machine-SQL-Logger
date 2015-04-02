@@ -9,7 +9,7 @@ import rifffish.Rifffish.PaymentMethod;
  * (converted from json to a Java object - gson)
  */
 public class Problem {
-	public Integer id = null;
+	public Integer machine_id = null;
 	public String description;
 	public String timestamp = null;
 	
@@ -29,7 +29,7 @@ public class Problem {
 	 * @return the id
 	 */
 	public Integer getId() {
-		return id;
+		return machine_id;
 	}
 
 	/**
