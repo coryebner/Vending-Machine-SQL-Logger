@@ -39,9 +39,10 @@ public class Transaction {
 		switch (pMethod) {
 			case COIN: 
 				return "coins";
-				
-			case CREDIT_CARD:				
+		case CREDIT_CARD:				
 				return "credit_cards";
+		case PAYPAL:				
+				return "paypal";
 				
 			default:
 				return null;

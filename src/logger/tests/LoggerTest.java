@@ -4,6 +4,10 @@
 package logger.tests;
 
 import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.RandomAccessFile;
+
 import logger.Logger;
 
 import org.junit.After;
@@ -11,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import rifffish.Problem;
+import rifffish.Rifffish.ProblemTypes;
 import rifffish.Transaction;
 import rifffish.Rifffish.PaymentMethod;
 
@@ -36,52 +41,60 @@ public class LoggerTest {
 	@After
 	public void tearDown() throws Exception {
 		logger = null;
+		File theFile = new File("log.txt");
+		File temporaryFileName = new File("temporaryLog.txt");
+    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
+
+    	temporaryFile.close();
+    	               
+    	theFile.delete();
+    	temporaryFileName.renameTo(theFile);
 	}
 
-//	/**
-//	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
-//	 */
-//	@Test
-//	public void testLogTransaction() {
-//		logger = new Logger(true, 0);
-//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-//		//t.id = 4;
-//		System.out.println(t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//
-//	/**
-//	 * Test method for problem
-//	 */
-//	@Test
-//	public void testLogProblem() {
-//		logger = new Logger(true,0);
-//		Problem t = new Problem("fail_whale");
-//		t.machine_id = 1;
-//		System.out.println(t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//	
-//	/**
-//	 * Test method for pushing locallog to server
-//	 */
-//	@Test
-//	public void testPushLog() {
-//		logger = new Logger(true, 1);
-//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-//		System.out.println("Transaction: " + t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//		
-//		try {
-//			Thread.currentThread().sleep(10000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	/**
+	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
+	 */
+	@Test
+	public void testLogTransaction() {
+		logger = new Logger(true, 0);
+		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
+		//t.id = 4;
+		System.out.println(t.timestamp);
+		logger.log(t);
+		assertEquals(null, logger.lastError);
+	}
+
+	/**
+	 * Test method for problem
+	 */
+	@Test
+	public void testLogProblem() {
+		logger = new Logger(true,0);
+		Problem t = new Problem(ProblemTypes.FAIL);
+		t.machine_id = 1;
+		System.out.println(t.timestamp);
+		logger.log(t);
+		assertEquals(null, logger.lastError);
+	}
+	
+	/**
+	 * Test method for pushing locallog to server
+	 */
+	@Test
+	public void testPushLog() {
+		logger = new Logger(true, 1);
+		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
+		System.out.println("Transaction: " + t.timestamp);
+		logger.log(t);
+		assertEquals(null, logger.lastError);
+		
+		try {
+			Thread.currentThread().sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
@@ -102,7 +115,7 @@ public class LoggerTest {
 	@Test
 	public void testOfflineLogProblem() {
 		logger = new Logger();
-		Problem t = new Problem("fail_whale");
+		Problem t = new Problem(ProblemTypes.FAIL);
 		t.machine_id = 1;
 		System.out.println("Problem:" + t.timestamp);
 		logger.log(t);
