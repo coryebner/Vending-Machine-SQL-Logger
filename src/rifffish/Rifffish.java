@@ -11,7 +11,7 @@ public class Rifffish {
 	private RestAdapter restAdapter = null;
 	private final static String RIFFFISH_API_URL = "http://rifffish.com/api";
 	
-	public static enum PaymentMethod {COIN, CREDIT_CARD};
+	public static enum PaymentMethod {COIN, CREDIT_CARD, PAYPAL};
 	
 	/**
 	 * Rifffish is a powerful way to manage your vending machines
@@ -89,6 +89,9 @@ public class Rifffish {
 			break;
 		case "credit_cards":
 			result = PaymentMethod.CREDIT_CARD;
+			break;
+		case "paypal":
+			result = PaymentMethod.PAYPAL;
 			break;
 		default:
 			break;
