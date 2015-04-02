@@ -2,8 +2,6 @@ package rifffish;
 
 import java.sql.Timestamp;
 
-import rifffish.Rifffish.PaymentMethod;
-
 /**
  * Represents a Problem Object
  * (converted from json to a Java object - gson)

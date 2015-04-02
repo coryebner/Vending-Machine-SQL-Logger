@@ -1,6 +1,5 @@
 package localLog.io;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +9,6 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
-
-import com.sun.swing.internal.plaf.synth.resources.synth;
 
 import rifffish.Problem;
 import rifffish.Rifffish;
@@ -151,8 +148,6 @@ public class LocalLog{
 			LineNumberReader  lnr = new LineNumberReader(new FileReader(new File("log.txt")));
 			lnr.skip(Long.MAX_VALUE);
 			result = lnr.getLineNumber();
-			//System.out.println(lnr.getLineNumber() + 1); //Add 1 because line index starts at 0
-			// Finally, the LineNumberReader object should be closed to prevent resource leak
 			lnr.close();
 		} catch (FileNotFoundException e) {
 			result=0;

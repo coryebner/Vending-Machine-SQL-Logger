@@ -1,7 +1,5 @@
 package rifffish;
 
-import java.sql.Timestamp;
-
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import rifffish.endpoints.ProblemService;

@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import rifffish.Problem;
-import rifffish.Rifffish;
 import rifffish.Transaction;
 import rifffish.Rifffish.PaymentMethod;
 
@@ -39,15 +38,60 @@ public class LoggerTest {
 		logger = null;
 	}
 
+//	/**
+//	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
+//	 */
+//	@Test
+//	public void testLogTransaction() {
+//		logger = new Logger(true, 0);
+//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
+//		//t.id = 4;
+//		System.out.println(t.timestamp);
+//		logger.log(t);
+//		assertEquals(null, logger.lastError);
+//	}
+//
+//	/**
+//	 * Test method for problem
+//	 */
+//	@Test
+//	public void testLogProblem() {
+//		logger = new Logger(true,0);
+//		Problem t = new Problem("fail_whale");
+//		t.machine_id = 1;
+//		System.out.println(t.timestamp);
+//		logger.log(t);
+//		assertEquals(null, logger.lastError);
+//	}
+//	
+//	/**
+//	 * Test method for pushing locallog to server
+//	 */
+//	@Test
+//	public void testPushLog() {
+//		logger = new Logger(true, 1);
+//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
+//		System.out.println("Transaction: " + t.timestamp);
+//		logger.log(t);
+//		assertEquals(null, logger.lastError);
+//		
+//		try {
+//			Thread.currentThread().sleep(10000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	
 	/**
 	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
 	 */
 	@Test
-	public void testLogTransaction() {
-		logger = new Logger(true, 0);
+	public void testOfflineLogTransaction() {
+		logger = new Logger();
 		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
 		//t.id = 4;
-		System.out.println(t.timestamp);
+		System.out.println("Transaction happened at: " + t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);
 	}
@@ -56,31 +100,12 @@ public class LoggerTest {
 	 * Test method for problem
 	 */
 	@Test
-	public void testLogProblem() {
-		logger = new Logger(true,0);
+	public void testOfflineLogProblem() {
+		logger = new Logger();
 		Problem t = new Problem("fail_whale");
 		t.machine_id = 1;
-		System.out.println(t.timestamp);
+		System.out.println("Problem:" + t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);
-	}
-	
-	/**
-	 * Test method for pushing locallog to server
-	 */
-	@Test
-	public void testPushLog() {
-		logger = new Logger(true, 1);
-		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-		System.out.println("Transaction: " + t.timestamp);
-		logger.log(t);
-		assertEquals(null, logger.lastError);
-		
-		try {
-			Thread.currentThread().sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
