@@ -1,21 +1,12 @@
 package logger;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Calendar;
-import java.util.Date;
-
 import localLog.io.LocalLog;
 import localLog.io.LocalLogReader;
 import localLog.io.LocalLogWriter;
-import retrofit.RestAdapter;
 import rifffish.Error;
 import rifffish.Problem;
 import rifffish.Rifffish;
 import rifffish.Transaction;
-import rifffish.endpoints.TransactionsService;
 
 /**
  * 
@@ -33,7 +24,6 @@ public class Logger{
 	private Rifffish r = null;
 	public Error lastError = null;
 	private int numberOfTransactions = 0;
-	private int currentTransactions = 0;
 	public boolean threadRunning = false;
 	private LogDate date = null;
 	private LocalLog localLog;
@@ -90,24 +80,20 @@ public class Logger{
 		if (date == null) {
 			if(numberOfTransactions == -1 || numberOfTransactions > 0){
 				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
-				//new LocalLog().printToLocalLog(t);
 				w1.start();
 			}else if (numberOfTransactions == 0) {
 				// Send to server
 				lastError = r.log(t);
 
-				// Add error to the local log / print error
+				// Add transaction to the local log because it didn't get sent to the server
 				if (lastError != null) {
 					LocalLogWriter w1 = new LocalLogWriter(localLog,t);
-					//new LocalLog().printToLocalLog(t);
 					w1.start();
-					System.out.println(lastError);
-					//new LocalLog().printToLocalLog(new Problem(lastError.toString()));
 				}
 			}
 			
 			if(localLog.getNumLines() >= numberOfTransactions && numberOfTransactions > 0){
-				//TODO: Read from file and send each line to the server
+				//Read from file and send each line to the server
 				LocalLogReader r1 = new LocalLogReader(r, localLog);
 				r1.start();
 			}
@@ -122,19 +108,18 @@ public class Logger{
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
 	public void log(Problem t) {		
-		System.out.println("sending to server");
-
 		if (numberOfTransactions != -1) {
 			// Send to server
 			lastError = r.log(t);
 
-			// Add error to the local log / print error
+			// Add Problem to the local log because it didn't get sent to the server
 			if (lastError != null) {
 				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
-				//new LocalLog().printToLocalLog(t);
 				w1.start();
-				System.out.println(lastError);
 			}
+		}else{
+			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+			w1.start();
 		}
  	}
 }

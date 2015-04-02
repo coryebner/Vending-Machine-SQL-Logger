@@ -1,8 +1,6 @@
 package localLog.io;
 
-import rifffish.Problem;
 import rifffish.Rifffish;
-import rifffish.Transaction;
 
 public class LocalLogReader extends Thread{
 	private LocalLog log;

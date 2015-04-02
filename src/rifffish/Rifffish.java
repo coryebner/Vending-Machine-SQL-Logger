@@ -1,7 +1,5 @@
 package rifffish;
 
-import java.sql.Timestamp;
-
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import rifffish.endpoints.ProblemService;
@@ -12,6 +10,7 @@ public class Rifffish {
 	private final static String RIFFFISH_API_URL = "http://rifffish.com/api";
 	
 	public static enum PaymentMethod {COIN, CREDIT_CARD, PAYPAL};
+	public static enum ProblemTypes {OUTOFORDER, FAIL};
 	
 	/**
 	 * Rifffish is a powerful way to manage your vending machines
@@ -81,7 +80,7 @@ public class Rifffish {
 		return error;
  	}
 	
-	public PaymentMethod valueOf(String s){
+	public PaymentMethod valueOfPayment(String s){
 		PaymentMethod result = null;
 		switch (s) {
 		case "coins":
@@ -97,6 +96,22 @@ public class Rifffish {
 			break;
 		}
 		
+		return result;
+	}
+
+	public ProblemTypes valueOfProblem(String s) {
+		ProblemTypes result = null;
+		switch (s) {
+		case "fail_whale":
+			result = ProblemTypes.FAIL;
+			break;
+		case "out_of_order":
+			result = ProblemTypes.OUTOFORDER;
+			break;
+		default:
+			break;
+		}
+
 		return result;
 	}
 }
