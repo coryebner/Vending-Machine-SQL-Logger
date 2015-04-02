@@ -15,6 +15,5 @@ public class LocalLogReader extends Thread{
 	
 	public void run(){
 		log.pushLocalLog(r);
-		System.out.println("thread " + Thread.currentThread().getName() + "finished pushLocalLog");
 	}
 }

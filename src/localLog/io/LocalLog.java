@@ -79,7 +79,7 @@ public class LocalLog{
 	}
 	 
 	/**
-	 *  Sends any local logs to the server
+	 *  Sends any local logs to the server. NOT SAFE.
 	 *  
 	 * @param r Riffish object
 	 */
@@ -100,7 +100,6 @@ public class LocalLog{
 			    String line;
 			    String[] split;	            
 			    while ((line = file.readLine()) != null && error == null) {
-		    	    long readPos = file.getFilePointer();
 			    	
 			       // process the line.
 			    	split = line.split(",");
@@ -140,6 +139,11 @@ public class LocalLog{
 		notifyAll();
 	}
 	
+	/**
+	 * Returns the number of lines in the log file
+	 * 
+	 * @return the number of lines in the file
+	 */
 	public synchronized int getNumLines(){
 		int result = 0;
 		

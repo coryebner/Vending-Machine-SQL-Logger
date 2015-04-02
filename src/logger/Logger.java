@@ -93,8 +93,6 @@ public class Logger{
 				//new LocalLog().printToLocalLog(t);
 				w1.start();
 			}else if (numberOfTransactions == 0) {
-				System.out.println("sending to server");
-
 				// Send to server
 				lastError = r.log(t);
 

@@ -39,18 +39,19 @@ public class LoggerTest {
 		logger = null;
 	}
 
-//	/**
-//	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
-//	 */
-//	@Test
-//	public void testLogTransaction() {
-//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-//		//t.id = 4;
-//		System.out.println(t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//
+	/**
+	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
+	 */
+	@Test
+	public void testLogTransaction() {
+		logger = new Logger(true, 0);
+		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
+		//t.id = 4;
+		System.out.println(t.timestamp);
+		logger.log(t);
+		assertEquals(null, logger.lastError);
+	}
+
 	/**
 	 * Test method for problem
 	 */
