@@ -49,8 +49,8 @@ public class Rifffish {
 		
 		TransactionsService service = restAdapter.create(TransactionsService.class);
 
-		java.util.Date date = new java.util.Date();
-		t.timestamp = (new Timestamp(date.getTime())).toString();
+		//java.util.Date date = new java.util.Date();
+		//t.timestamp = (new Timestamp(date.getTime())).toString();
 		
 		
 		try {

@@ -28,7 +28,7 @@ public class LoggerTest {
 	@Before
 	public void setUp() throws Exception {
 		// Local dev testing, API Key will need to be regenerated
-		logger = new Logger(new ImmediateScheme());
+		logger = new Logger(true, 0);
 	}
 
 	/**
