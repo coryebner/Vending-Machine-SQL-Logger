@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import rifffish.endpoints.ProblemService;
 import rifffish.endpoints.TransactionsService;
 
 public class Rifffish {
@@ -47,11 +48,7 @@ public class Rifffish {
 	public Error log(Transaction t) {
 		Error error = null;
 		
-		TransactionsService service = restAdapter.create(TransactionsService.class);
-
-		//java.util.Date date = new java.util.Date();
-		//t.timestamp = (new Timestamp(date.getTime())).toString();
-		
+		TransactionsService service = restAdapter.create(TransactionsService.class);		
 		
 		try {
 			service.createTransaction(t);
@@ -61,12 +58,25 @@ public class Rifffish {
 		
 		return error;
  	}
-
+	
 	/**
-	 * @return the restAdapter
+	 * Log for Problems
+	 * Logs a Problem to our API
+	 * @param problem, A problem that is being logged
+	 * @return Error, returns null when problem was logged successfully, 
+	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
-	public RestAdapter getRestAdapter() {
-		System.out.println(restAdapter);
-		return restAdapter;
-	}
+	public Error log(Problem p) {
+		Error error = null;
+		
+		ProblemService service = restAdapter.create(ProblemService.class);		
+		
+		try {
+			service.createTransaction(p);
+		} catch(Exception e) {
+			error = new Error("400 - Bad Request. Transaction Malformed.");
+		}
+		
+		return error;
+ 	}
 }

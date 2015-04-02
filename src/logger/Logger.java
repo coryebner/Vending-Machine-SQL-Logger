@@ -29,10 +29,9 @@ import schemes.SetTimeScheme;
 
 public class Logger{
 	
-	private static final String RIFFFISH_API_URL = "http://rifffish.com/";
+	private static final String RIFFFISH_API_URL = "http://rifffish.com/api";
 	private static final String API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private int vendingMachineID;
-	private RestAdapter restAdapter = null;
 	private Rifffish r = null;
 	public Error lastError = null;
 	private int numberOfTransactions = 0;
