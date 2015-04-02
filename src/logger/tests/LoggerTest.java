@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import rifffish.Problem;
 import rifffish.Rifffish;
 import rifffish.Transaction;
 import rifffish.Rifffish.PaymentMethod;
@@ -51,4 +52,14 @@ public class LoggerTest {
 		assertEquals(null, logger.lastError);
 	}
 
+//	/**
+//	 * Test method for problem
+//	 */
+//	@Test
+//	public void testLogProblem() {
+//		Problem t = new Problem("An error occured");
+//		System.out.println(t.timestamp);
+//		logger.log(t);
+//		assertEquals(null, logger.lastError);
+//	}
 }

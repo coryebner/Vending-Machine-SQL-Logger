@@ -74,7 +74,7 @@ public class Rifffish {
 		try {
 			service.createTransaction(p);
 		} catch(Exception e) {
-			error = new Error("400 - Bad Request. Transaction Malformed.");
+			error = new Error("400 - Bad Request. Problem Malformed.");
 		}
 		
 		return error;

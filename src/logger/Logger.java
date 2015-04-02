@@ -92,7 +92,6 @@ public class Logger{
 				// TODO: Send to server
 
 				lastError = r.log(t);
-				//lastError = sendTransaction(t);
 
 				// TODO: Add error to the local log
 				if (lastError != null) {
@@ -102,6 +101,29 @@ public class Logger{
 			}else if(currentTransactions >= numberOfTransactions){
 				//TODO: Read from file and send each line to the server
 			}
+		}
+ 	}
+	
+	/**
+	 * Log for Problems 
+	 * Logs a Problem to our API
+	 * @param Problem, A problem that is being logged
+	 * @return Error, returns null when problem was logged successfully, 
+	 * 		   else returns an Error (which could be parsed or just printed)
+	 */
+	public void log(Problem t) {		
+		new LocalLog().printToLocalLog(t);
+
+		System.out.println("sending to server");
+
+		// TODO: Send to server
+
+		lastError = r.log(t);
+
+		// TODO: Add error to the local log
+		if (lastError != null) {
+			System.out.println(lastError);
+			new LocalLog().printToLocalLog(new Problem(lastError.toString()));
 		}
  	}
 	
