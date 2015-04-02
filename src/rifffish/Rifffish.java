@@ -80,4 +80,20 @@ public class Rifffish {
 		
 		return error;
  	}
+	
+	public PaymentMethod valueOf(String s){
+		PaymentMethod result = null;
+		switch (s) {
+		case "coins":
+			result = PaymentMethod.COIN;
+			break;
+		case "credit_cards":
+			result = PaymentMethod.CREDIT_CARD;
+			break;
+		default:
+			break;
+		}
+		
+		return result;
+	}
 }

@@ -12,6 +12,7 @@ import java.io.RandomAccessFile;
 import com.sun.swing.internal.plaf.synth.resources.synth;
 
 import rifffish.Problem;
+import rifffish.Rifffish;
 import rifffish.Transaction;
 
 public class LocalLog{
@@ -75,12 +76,62 @@ public class LocalLog{
 		  notifyAll();
 	}
 	 
-	public synchronized void pushLocalLog(){
+	/**
+	 *  Sends any local logs to the server
+	 *  
+	 * @param r Riffish object
+	 */
+	public synchronized void pushLocalLog(Rifffish r){
+		Error error = null;
+		
+		while (available == false) {
+	         try {
+	            wait();
+	         }
+	         catch (InterruptedException e) { 
+	         } 
+	      }
+		
 		try {
 			RandomAccessFile file =  new RandomAccessFile("log.txt", "rws");
 			    String line;
+			    String[] split;
 			    while ((line = file.readLine()) != null) {
 			       // process the line.
+			    	split = line.split(",");
+			    	if(split[0].equals("Transaction")){
+			    		Transaction t = new Transaction(Integer.parseInt(split[2]), r.valueOf(split[3]), Boolean.valueOf(split[4]));
+			    		t.id = Integer.parseInt(split[1]);
+			    		t.timestamp = split[6];
+			    		r.log(t);
+			    	}else if(split[0].equals("Problem")){
+			    		Problem p = new Problem(split[2]);
+			    		p.timestamp = split[3];
+			    		p.machine_id = Integer.parseInt(split[1]);
+			    		r.log(p);
+			    	}
+			    	
+			    	//if the message was sent to the server successfully remove the line from the file
+			    	if(error == null){
+			    		// Shift remaining lines upwards.
+			    	    long writePos = file.getFilePointer();
+			    	    file.readLine();
+			    	    long readPos = file.getFilePointer();
+
+			    	    byte[] buf = new byte[1024];
+			    	    int n;
+			    	    while (-1 != (n = file.read(buf))) {
+			    	        file.seek(writePos);
+			    	        file.write(buf, 0, n);
+			    	        readPos += n;
+			    	        writePos += n;
+			    	        file.seek(readPos);
+			    	    }
+
+			    	    file.setLength(writePos);
+
+			    	}
+			    	file.close();
 			    }
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -90,6 +141,7 @@ public class LocalLog{
 			e.printStackTrace();
 		}
 
-
+		available = false;
+		notifyAll();
 	}
 }
