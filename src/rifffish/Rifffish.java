@@ -72,8 +72,9 @@ public class Rifffish {
 		ProblemService service = restAdapter.create(ProblemService.class);		
 		
 		try {
-			service.createTransaction(p);
+			service.createProblem(p);
 		} catch(Exception e) {
+			System.out.println(e);
 			error = new Error("400 - Bad Request. Problem Malformed.");
 		}
 		

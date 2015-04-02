@@ -7,5 +7,5 @@ import rifffish.Problem;
 
 public interface ProblemService {	
 	@POST("/log/problems")
-	Problem createTransaction(@Body Problem problem);
+	Problem createProblem(@Body Problem problem);
 }
