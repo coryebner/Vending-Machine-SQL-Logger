@@ -37,35 +37,41 @@ public class Logger{
 	private int numberOfTransactions = 0;
 	private int currentTransactions = 0;
 	public boolean threadRunning = false;
-	Date date = null;
+	private LogDate date = null;
 	
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
 	 */
 	public Logger(){
-		this(false, 0);
+		this(false, -1);
 	}
 	
 	/**
 	 * Creates a logger that sends logs to a remote server after a set amount of transactions
 	 * 
-	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server.
+	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately
 	 */
 	public Logger(boolean internetEnabled, int numberOfTransactions){
 		if(internetEnabled){
 			r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 			this.numberOfTransactions = numberOfTransactions;
+		}else{
+			this.numberOfTransactions = -1;
 		}
 	}
 	
 	/**
 	 * Creates a Logger that sends the logs to a remote server at a set time
 	 * 
+	 * @param internetEnabled, true/false
+	 * @param date the set time logging scheme to use
 	 */
-	public Logger(boolean internetEnabled, Date date){
+	public Logger(boolean internetEnabled, LogDate date){
 		if(internetEnabled){
 			r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 			
+		}else{
+			this.numberOfTransactions = -1;
 		}
 	}
 	
