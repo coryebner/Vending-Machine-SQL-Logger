@@ -7,7 +7,8 @@ import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 
-import localLogging.LocalLog;
+import localLog.io.LocalLog;
+import localLog.io.LocalLogWriter;
 import retrofit.RestAdapter;
 import rifffish.Error;
 import rifffish.Problem;
@@ -34,6 +35,7 @@ public class Logger{
 	private int currentTransactions = 0;
 	public boolean threadRunning = false;
 	private LogDate date = null;
+	private LocalLog localLog;
 	
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
@@ -48,6 +50,8 @@ public class Logger{
 	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately
 	 */
 	public Logger(boolean internetEnabled, int numberOfTransactions){
+		localLog = new LocalLog();
+		
 		if(internetEnabled){
 			r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 			this.numberOfTransactions = numberOfTransactions;
@@ -63,6 +67,8 @@ public class Logger{
 	 * @param date the set time logging scheme to use
 	 */
 	public Logger(boolean internetEnabled, LogDate date){
+		localLog = new LocalLog();
+		
 		if(internetEnabled){
 			r = new Rifffish(API_KEY, RIFFFISH_API_URL);
 			
@@ -78,8 +84,11 @@ public class Logger{
 	 * @return Error, returns null when transaction was logged successfully, 
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
-	public void log(Transaction t) {		
-		new LocalLog().printToLocalLog(t);
+	public void log(Transaction t) {
+		
+		LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+		//new LocalLog().printToLocalLog(t);
+		w1.start();
 		
 		if (date == null) {
 			if (numberOfTransactions == 0) {
