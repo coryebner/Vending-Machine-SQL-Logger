@@ -42,7 +42,7 @@ public class Rifffish {
 	/**
 	 * Log for Transactions 
 	 * Logs a Transaction to our API
-	 * @param transaction, A transaction that is being logged
+	 * @param t, A transaction that is being logged
 	 * @return Error, returns null when transaction was logged successfully, 
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
@@ -63,7 +63,7 @@ public class Rifffish {
 	/**
 	 * Log for Problems
 	 * Logs a Problem to our API
-	 * @param problem, A problem that is being logged
+	 * @param p, A problem that is being logged
 	 * @return Error, returns null when problem was logged successfully, 
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
@@ -85,7 +85,7 @@ public class Rifffish {
 	/**
 	 * Log for Stockout
 	 * Logs a Stockout to our API
-	 * @param Stockout, A stockout that is being logged
+	 * @param p, A stockout that is being logged
 	 * @return Error, returns null when stockout was logged successfully, 
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */

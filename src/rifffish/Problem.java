@@ -17,7 +17,7 @@ public class Problem {
 	 * Problem Object. All params are required.
 	 * See API/SDK documentation for more information
 	 * 
-	 * @param description a ProblemType
+	 * @param problem A ENUM of a ProblemTypes, see API for more details
 	 */
 	public Problem(ProblemTypes problem) {
 		this.description = parseProblemType(problem);	

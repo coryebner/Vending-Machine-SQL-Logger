@@ -39,6 +39,7 @@ public class Logger{
 	 * Creates a logger that sends logs to a remote server after a set amount of transactions
 	 * 
 	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately sent to the server
+	 * @param internetEnabled true/false
 	 */
 	public Logger(boolean internetEnabled, int numberOfTransactions){
 		localLog = new LocalLog();
@@ -71,9 +72,7 @@ public class Logger{
 	/**
 	 * Log for Transactions 
 	 * Logs a Transaction to our API
-	 * @param transaction, A transaction that is being logged
-	 * @return Error, returns null when transaction was logged successfully, 
-	 * 		   else returns an Error (which could be parsed or just printed)
+	 * @param t, A transaction that is being logged
 	 */
 	public void log(Transaction t) {
 		
@@ -104,8 +103,6 @@ public class Logger{
 	 * Log for Problems 
 	 * Logs a Problem to our API
 	 * @param t A problem that is being logged
-	 * @return Error, returns null when problem was logged successfully, 
-	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
 	public void log(Problem t) {		
 		if (numberOfTransactions != -1) {
@@ -127,8 +124,6 @@ public class Logger{
 	 * Log for Stockouts 
 	 * Logs a Stockout to our API
 	 * @param t  A Stockout that is being logged
-	 * @return Error, returns null when Stockout was logged successfully, 
-	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
 	public void log(Stockout t) {		
 		if (numberOfTransactions != -1) {

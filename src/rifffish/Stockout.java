@@ -18,7 +18,7 @@ public class Stockout {
 	 * See API/SDK documentation for more information
 	 * 
 	 * @param id the product id
-	 * @param description a ProblemType
+	 * @param type ENUM of a StockoutTypes see API for more details
 	 */
 	public Stockout(Integer id, StockoutTypes type) {
 		this.product_id = id;
