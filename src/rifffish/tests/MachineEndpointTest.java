@@ -5,19 +5,69 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import rifffish.Machine;
 import rifffish.Rifffish;
-import rifffish.Transaction;
-import rifffish.Rifffish.PaymentMethod;
+import rifffish.Error;
 
-public class TransactionEndpointTest {
+
+public class MachineEndpointTest {
 	private Rifffish r = null;
-	
+	private Machine m = null;
 	@Before
 	public void setUp() throws Exception {
 		// Local dev testing, API Key will need to be regenerated
-		r = new Rifffish("rsh_3wL4MyhWW4z3kfjoYfyN0gtt", "http://rifffish.com/api");
+		r = new Rifffish("rsh_Wv9Q58YtKQBh7v7C0fzTvQtt", "http://localhost:3000/api");  //generate a ton of junk data!
+		m = new Machine("Candy Pop", "vmrs_sff_p_c", "in_service", "CAD");
+
+	}
+	
+	@Test
+	public void testCreateMachineSuccessfully() {
+		Machine responseMachine = r.createMachine(m);
+		
+		assertNotNull(responseMachine.getId());
+		assertEquals(m.getName(), responseMachine.getName());
+		assertEquals(m.getConfigName(), responseMachine.getConfigName());
+		assertEquals(m.getMode(), responseMachine.getMode());
+		assertEquals(m.getCurrency(), responseMachine.getCurrency()); // we don't care about being case sensitive....
+	}
+	
+	@Test
+	public void testGetMachineSuccessfully() {
+		Machine machine = r.createMachine(m);
+		
+		Machine responseMachine = r.getMachine(machine.getId());
+		
+		assertEquals(machine.getId(), responseMachine.getId());
+		assertEquals(machine.getName(), responseMachine.getName());
+		assertEquals(machine.getConfigName(), responseMachine.getConfigName());
+		assertEquals(machine.getMode(), responseMachine.getMode());
+		assertEquals(machine.getCurrency(), responseMachine.getCurrency()); // we don't care about being case sensitive....
+	}
+	
+	@Test
+	public void testUpdateMachineSuccessfully() {
+		Machine machine = r.createMachine(m);
+		
+		machine.setName("Candy Awesome");
+		Machine responseMachine = r.updateMachine(machine);
+		
+		assertEquals(machine.getId(), responseMachine.getId());
+		assertEquals(machine.getName(), responseMachine.getName());
+		assertEquals(machine.getConfigName(), responseMachine.getConfigName());
+		assertEquals(machine.getMode(), responseMachine.getMode());
+		assertEquals(machine.getCurrency(), responseMachine.getCurrency()); // we don't care about being case sensitive....
+	}
+	
+	@Test
+	public void testDeleteMachineSuccessfully() {
+		Machine machine = r.createMachine(m);
+				
+		Error e = r.deleteMachine(machine.getId());
+		assertEquals(null, r.deleteMachine(machine.getId()));
 	}
 
+	/*
 	@Test
 	public void testWellFormedTransactionStatusPassed() {
 		assertEquals(null, r.log(new Transaction(1, PaymentMethod.COIN, true)));
@@ -51,7 +101,7 @@ public class TransactionEndpointTest {
 		assertEquals("Error -> 400 - Bad Request. Transaction Malformed.", 
 				(r.log(new Transaction(null, PaymentMethod.COIN, false))).toString());
 	}
-	
+
 	@Test
 	public void testBadAPIKey() {
 		// Local dev testing, API Key will need to be regenerated
@@ -67,5 +117,5 @@ public class TransactionEndpointTest {
 		assertEquals("Error -> 400 - Bad Request. Transaction Malformed.", 
 				(r.log(new Transaction(null, PaymentMethod.COIN, false))).toString());
 	}
-
+*/
 }

@@ -9,9 +9,17 @@ package rifffish;
  */
 public class Error {
 	private String errorMessage = "";
+	private boolean errorFlag = false;
 	
 	public Error(String error) {
 		errorMessage = error;
+		
+		if (error != null)
+			errorFlag = true;
+	}
+	
+	public boolean foundError() {
+		return errorFlag;
 	}
 	
 	public String toString() {
