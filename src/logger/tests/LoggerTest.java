@@ -14,18 +14,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import rifffish.Problem;
-import rifffish.Rifffish.ProblemTypes;
 import rifffish.Rifffish.StockoutTypes;
 import rifffish.Stockout;
-import rifffish.Transaction;
-import rifffish.Rifffish.PaymentMethod;
 
 /**
  * @author Cory Ebner
  *
  */
 public class LoggerTest {
+	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
 	
 	/**
@@ -141,7 +138,7 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testLogStockout() {
-		logger = new Logger(true,0);
+		logger = new Logger(RIFFFISH_API_KEY,0);
 		Stockout t = new Stockout(1, StockoutTypes.ALMOSTOUT);
 		System.out.println("Stockout: " + t.timestamp);
 		logger.log(t);

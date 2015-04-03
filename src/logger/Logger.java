@@ -20,7 +20,6 @@ import rifffish.Transaction;
 public class Logger{
 	
 	private static final String RIFFFISH_API_URL = "http://rifffish.com/api";
-	private static final String API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private int vendingMachineID;
 	private Rifffish r = null;
 	public Error lastError = null;
@@ -32,7 +31,7 @@ public class Logger{
 	 * Creates a logger that uses a default Offline logging scheme
 	 */
 	public Logger(){
-		this(false, -1);
+		this(null, -1);
 	}
 	
 	/**
@@ -41,11 +40,11 @@ public class Logger{
 	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately sent to the server
 	 * @param internetEnabled true/false
 	 */
-	public Logger(boolean internetEnabled, int numberOfTransactions){
+	public Logger(String rifffish_api_key, int numberOfTransactions){
 		localLog = new LocalLog();
 		
-		if(internetEnabled){
-			r = new Rifffish(API_KEY, RIFFFISH_API_URL);
+		if(rifffish_api_key != null){
+			r = new Rifffish(rifffish_api_key, RIFFFISH_API_URL);
 			this.numberOfTransactions = numberOfTransactions;
 		}else{
 			this.numberOfTransactions = -1;
@@ -58,11 +57,11 @@ public class Logger{
 	 * @param internetEnabled, true/false
 	 * @param date the set time logging scheme to use
 	 */
-	public Logger(boolean internetEnabled, LogDate date){
+	public Logger(String rifffish_api_key, LogDate date){
 		localLog = new LocalLog();
 		
-		if(internetEnabled){
-			r = new Rifffish(API_KEY, RIFFFISH_API_URL);
+		if(rifffish_api_key != null){
+			r = new Rifffish(rifffish_api_key, RIFFFISH_API_URL);
 			
 		}else{
 			this.numberOfTransactions = -1;

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import rifffish.Product;
 import rifffish.Rifffish;
-import rifffish.Error;
 
 
 public class ProductEndpointTest {
@@ -68,7 +67,6 @@ public class ProductEndpointTest {
 	public void testDeleteProductSuccessfully() {
 		Product product = r.createProduct(p);
 				
-		Error e = r.deleteProduct(product.getId());
 		assertEquals(null, r.deleteProduct(product.getId()));
 	}
 

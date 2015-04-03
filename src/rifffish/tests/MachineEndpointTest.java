@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import rifffish.Machine;
 import rifffish.Rifffish;
-import rifffish.Error;
 
 
 public class MachineEndpointTest {
@@ -62,8 +61,6 @@ public class MachineEndpointTest {
 	@Test
 	public void testDeleteMachineSuccessfully() {
 		Machine machine = r.createMachine(m);
-				
-		Error e = r.deleteMachine(machine.getId());
 		assertEquals(null, r.deleteMachine(machine.getId()));
 	}
 
