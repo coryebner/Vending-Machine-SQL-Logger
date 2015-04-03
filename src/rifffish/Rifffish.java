@@ -3,6 +3,7 @@ package rifffish;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import rifffish.endpoints.ProblemService;
+import rifffish.endpoints.StockoutService;
 import rifffish.endpoints.TransactionsService;
 
 public class Rifffish {
@@ -11,6 +12,7 @@ public class Rifffish {
 	
 	public static enum PaymentMethod {COIN, CREDIT_CARD, PAYPAL};
 	public static enum ProblemTypes {OUTOFORDER, FAIL};
+	public static enum StockoutTypes {OUTOFSTOCK, ALMOSTOUT};
 	
 	/**
 	 * Rifffish is a powerful way to manage your vending machines
@@ -80,6 +82,28 @@ public class Rifffish {
 		return error;
  	}
 	
+	/**
+	 * Log for Stockout
+	 * Logs a Stockout to our API
+	 * @param Stockout, A stockout that is being logged
+	 * @return Error, returns null when stockout was logged successfully, 
+	 * 		   else returns an Error (which could be parsed or just printed)
+	 */
+	public Error log(Stockout p) {
+		Error error = null;
+		
+		StockoutService service = restAdapter.create(StockoutService.class);		
+		
+		try {
+			service.createStockout(p);
+		} catch(Exception e) {
+			System.out.println(e);
+			error = new Error("400 - Bad Request. Stockout Malformed.");
+		}
+		
+		return error;
+ 	}
+	
 	public PaymentMethod valueOfPayment(String s){
 		PaymentMethod result = null;
 		switch (s) {
@@ -107,6 +131,22 @@ public class Rifffish {
 			break;
 		case "out_of_order":
 			result = ProblemTypes.OUTOFORDER;
+			break;
+		default:
+			break;
+		}
+
+		return result;
+	}
+	
+	public StockoutTypes valueOfStockout(String s) {
+		StockoutTypes result = null;
+		switch (s) {
+		case "out_of_stock":
+			result = StockoutTypes.OUTOFSTOCK;
+			break;
+		case "almost_out":
+			result = StockoutTypes.ALMOSTOUT;
 			break;
 		default:
 			break;

@@ -6,6 +6,7 @@ import localLog.io.LocalLogWriter;
 import rifffish.Error;
 import rifffish.Problem;
 import rifffish.Rifffish;
+import rifffish.Stockout;
 import rifffish.Transaction;
 
 /**
@@ -37,7 +38,7 @@ public class Logger{
 	/**
 	 * Creates a logger that sends logs to a remote server after a set amount of transactions
 	 * 
-	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately
+	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately sent to the server
 	 */
 	public Logger(boolean internetEnabled, int numberOfTransactions){
 		localLog = new LocalLog();
@@ -102,11 +103,34 @@ public class Logger{
 	/**
 	 * Log for Problems 
 	 * Logs a Problem to our API
-	 * @param Problem, A problem that is being logged
+	 * @param t A problem that is being logged
 	 * @return Error, returns null when problem was logged successfully, 
 	 * 		   else returns an Error (which could be parsed or just printed)
 	 */
 	public void log(Problem t) {		
+		if (numberOfTransactions != -1) {
+			// Send to server
+			lastError = r.log(t);
+
+			// Add Problem to the local log because it didn't get sent to the server
+			if (lastError != null) {
+				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+				w1.start();
+			}
+		}else{
+			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+			w1.start();
+		}
+ 	}
+	
+	/**
+	 * Log for Stockouts 
+	 * Logs a Stockout to our API
+	 * @param t  A Stockout that is being logged
+	 * @return Error, returns null when Stockout was logged successfully, 
+	 * 		   else returns an Error (which could be parsed or just printed)
+	 */
+	public void log(Stockout t) {		
 		if (numberOfTransactions != -1) {
 			// Send to server
 			lastError = r.log(t);

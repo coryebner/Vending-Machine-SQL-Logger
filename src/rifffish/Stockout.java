@@ -2,25 +2,27 @@ package rifffish;
 
 import java.sql.Timestamp;
 
-import rifffish.Rifffish.ProblemTypes;
+import rifffish.Rifffish.StockoutTypes;
 
 /**
  * Represents a Problem Object
  * (converted from json to a Java object - gson)
  */
-public class Problem {
-	public Integer machine_id = null;
-	public String description;
+public class Stockout {
+	public Integer product_id = null;
+	public String description = null;
 	public String timestamp = null;
 	
 	/**
 	 * Problem Object. All params are required.
 	 * See API/SDK documentation for more information
 	 * 
+	 * @param id the product id
 	 * @param description a ProblemType
 	 */
-	public Problem(ProblemTypes problem) {
-		this.description = parseProblemType(problem);	
+	public Stockout(Integer id, StockoutTypes type) {
+		this.product_id = id;
+		this.description = parseStockoutType(type);	
 		java.util.Date date = new java.util.Date();
 		this.timestamp = (new Timestamp(date.getTime())).toString();
 	}
@@ -29,7 +31,7 @@ public class Problem {
 	 * @return the id
 	 */
 	public Integer getId() {
-		return machine_id;
+		return product_id;
 	}
 
 	/**
@@ -47,18 +49,17 @@ public class Problem {
 	}
 	
 	/**
-	 * Convert ProblemType enum to the string format used by the server
+	 * Convert StockType enum to the string format used by the server
 	 * 
 	 * @param pMethod
 	 * @return
 	 */
-	private String parseProblemType(ProblemTypes pMethod) {
+	private String parseStockoutType(StockoutTypes pMethod) {
 		switch (pMethod) {
-			case FAIL: 
-				return "fail_whale";
-		case OUTOFORDER:				
-				return "out_of_order";
-				
+			case OUTOFSTOCK: 
+				return "out_of_stock";
+			case ALMOSTOUT: 
+				return "almost_out";
 			default:
 				return null;
 		}

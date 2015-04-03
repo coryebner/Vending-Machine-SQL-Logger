@@ -12,6 +12,7 @@ import java.io.RandomAccessFile;
 
 import rifffish.Problem;
 import rifffish.Rifffish;
+import rifffish.Stockout;
 import rifffish.Transaction;
 
 public class LocalLog{
@@ -47,11 +48,11 @@ public class LocalLog{
 	}
 	
 	/**
-	 * Prints a Problem to a local log file
+	 * Prints a Stockout to a local log file
 	 * 
-	 * @param t a Problem object
+	 * @param t a Stockout object
 	 */
-	 public synchronized void printToLocalLog(Problem t){
+	 public synchronized void printToLocalLog(Stockout t){
 		 while (available == true) {
 	         try {
 	            wait();
@@ -64,7 +65,7 @@ public class LocalLog{
 		          BufferedWriter bw = new BufferedWriter(fw);
 		          PrintWriter out = new PrintWriter(bw)){
 
-			  out.println("Problem," + t.getId() + "," + t.getDescription() + "," + t.getTimestamp());
+			  out.println("Stockout," + t.getId() + "," + t.getDescription() + "," + t.getTimestamp());
 
 		  }  
 		  catch( IOException e ){
@@ -74,6 +75,35 @@ public class LocalLog{
 		  available = true;
 		  notifyAll();
 	}
+	 
+		/**
+		 * Prints a Problem to a local log file
+		 * 
+		 * @param t a Problem object
+		 */
+		 public synchronized void printToLocalLog(Problem t){
+			 while (available == true) {
+		         try {
+		            wait();
+		         }
+		         catch (InterruptedException e) { 
+		         } 
+		      }
+			 
+			  try(    FileWriter fw = new FileWriter("log.txt", true);
+			          BufferedWriter bw = new BufferedWriter(fw);
+			          PrintWriter out = new PrintWriter(bw)){
+
+				  out.println("Problem," + t.getId() + "," + t.getDescription() + "," + t.getTimestamp());
+
+			  }  
+			  catch( IOException e ){
+			      // File writing/opening failed at some stage.
+			  }
+			  
+			  available = true;
+			  notifyAll();
+		}
 	 
 	/**
 	 *  Sends any local logs to the server. NOT SAFE.
@@ -109,6 +139,10 @@ public class LocalLog{
 			    		Problem p = new Problem(r.valueOfProblem(split[2]));
 			    		p.timestamp = split[3];
 			    		p.machine_id = Integer.parseInt(split[1]);
+			    		r.log(p);
+			    	}else if(split[0].equals("Stockout")){
+			    		Stockout p = new Stockout(Integer.parseInt(split[1]), r.valueOfStockout(split[2]));
+			    		p.timestamp = split[3];
 			    		r.log(p);
 			    	}			    	
 			    	

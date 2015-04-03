@@ -1,6 +1,7 @@
 package localLog.io;
 
 import rifffish.Problem;
+import rifffish.Stockout;
 import rifffish.Transaction;
 
 public class LocalLogWriter extends Thread{
@@ -17,10 +18,17 @@ public class LocalLogWriter extends Thread{
 		this.log = log;
 	}
 	
+	public LocalLogWriter(LocalLog log, Stockout p){
+		this.toLog = p;
+		this.log = log;
+	}
+	
 	public void run(){
 		if(toLog instanceof Transaction)
 			log.printToLocalLog((Transaction)toLog);
 		else if(toLog instanceof Problem)
 			log.printToLocalLog((Problem)toLog);
+		else if(toLog instanceof Stockout)
+			log.printToLocalLog((Stockout)toLog);
 	}
 }

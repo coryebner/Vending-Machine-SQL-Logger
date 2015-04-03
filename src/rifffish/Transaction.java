@@ -35,6 +35,12 @@ public class Transaction {
 		this.timestamp = (new Timestamp(date.getTime())).toString();
 	}
 	
+	/**
+	 * Convert Payment enum to the server string format
+	 * 
+	 * @param pMethod
+	 * @return
+	 */
 	private String parsePaymentMethod(PaymentMethod pMethod) {
 		switch (pMethod) {
 			case COIN: 
