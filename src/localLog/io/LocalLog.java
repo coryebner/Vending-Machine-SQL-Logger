@@ -36,7 +36,7 @@ public class LocalLog{
 		          BufferedWriter bw = new BufferedWriter(fw);
 		          PrintWriter out = new PrintWriter(bw)){
 
-			  out.println("Transaction," + t.getId() + "," + t.getProduct_id() + "," + t.getQuantity() + "," + t.getPayment_method() + "," + t.getStatus() + "," + t.getTimestamp() + "," + t.getError());
+			  out.println("Transaction," + t.getId() + "," + t.getProductId() + "," + t.getQuantity() + "," + t.getPaymentMethod() + "," + t.getStatus() + "," + t.getTimestamp() + "," + t.getError());
 
 		  }  
 		  catch( IOException e ){

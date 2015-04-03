@@ -65,7 +65,7 @@ public class Transaction {
 	/**
 	 * @return the product_id
 	 */
-	public Integer getProduct_id() {
+	public Integer getProductId() {
 		return product_id;
 	}
 
@@ -79,7 +79,7 @@ public class Transaction {
 	/**
 	 * @return the payment_method
 	 */
-	public String getPayment_method() {
+	public String getPaymentMethod() {
 		return payment_method;
 	}
 
