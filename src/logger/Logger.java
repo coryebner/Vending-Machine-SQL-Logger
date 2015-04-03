@@ -24,7 +24,6 @@ public class Logger{
 	private Rifffish r = null;
 	public Error lastError = null;
 	private int numberOfTransactions = 0;
-	public boolean threadRunning = false;
 	private LogDate date = null;
 	private LocalLog localLog;
 	

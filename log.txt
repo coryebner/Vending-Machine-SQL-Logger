@@ -1,0 +1,35 @@
+null,1,1,coins,true,2015-04-01 22:49:16.492,null
+null,1,1,coins,true,2015-04-01 22:53:51.944,null
+null,1,1,coins,true,2015-04-01 22:54:36.705,null
+null,1,1,coins,true,2015-04-01 22:56:14.711,null
+null,Error -> 400 - Bad Request. Transaction Malformed.,2015-04-01 22:56:14.855
+null,1,1,coins,true,2015-04-01 23:01:55.916,null
+null,Error -> 400 - Bad Request. Transaction Malformed.,2015-04-01 23:01:56.068
+null,1,1,coins,true,2015-04-01 23:03:00.506,null
+null,Error -> 400 - Bad Request. Transaction Malformed.,2015-04-01 23:03:00.66
+null,1,1,coins,true,2015-04-01 23:04:34.753,null
+null,1,1,coins,true,2015-04-01 23:05:58.95,null
+null,An error occured,2015-04-01 23:46:17.936
+null,Error -> 400 - Bad Request. Transaction Malformed.,2015-04-01 23:46:18.175
+null,1,1,coins,true,2015-04-01 23:46:18.179,null
+null,An error occured,2015-04-02 00:06:13.229
+null,Error -> 400 - Bad Request. Problem Malformed.,2015-04-02 00:06:13.385
+null,1,1,coins,true,2015-04-02 00:06:13.389,null
+null,This is a Problem Message test,2015-04-02 00:08:36.545
+null,Error -> 400 - Bad Request. Problem Malformed.,2015-04-02 00:08:36.707
+null,1,1,coins,true,2015-04-02 00:08:36.713,null
+null,This is a Problem Message test,2015-04-02 00:10:47.474
+null,Error -> 400 - Bad Request. Problem Malformed.,2015-04-02 00:10:47.622
+null,1,1,coins,true,2015-04-02 00:10:47.628,null
+null,out_of_order,2015-04-02 00:14:40.816
+null,Error -> 400 - Bad Request. Problem Malformed.,2015-04-02 00:14:40.98
+null,1,1,coins,true,2015-04-02 00:14:40.984,null
+null,fail_whale,2015-04-02 00:15:15.658
+null,Error -> 400 - Bad Request. Problem Malformed.,2015-04-02 00:15:15.814
+null,1,1,coins,true,2015-04-02 00:15:15.82,null
+1,fail_whale,2015-04-02 00:17:04.041
+1,Error -> 400 - Bad Request. Problem Malformed.,2015-04-02 00:17:04.257
+null,1,1,coins,true,2015-04-02 00:17:04.261,null
+null,1,1,coins,true,2015-04-02 00:23:39.625,null
+1,fail_whale,2015-04-02 00:24:10.271
+null,1,1,coins,true,2015-04-02 00:24:10.439,null
