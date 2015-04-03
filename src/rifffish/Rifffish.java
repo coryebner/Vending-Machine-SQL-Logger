@@ -2,8 +2,10 @@ package rifffish;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
+import rifffish.endpoints.MachinesService;
 import rifffish.endpoints.ProblemService;
 import rifffish.endpoints.StockoutService;
+import rifffish.endpoints.ProductsService;
 import rifffish.endpoints.TransactionsService;
 
 public class Rifffish {
@@ -154,4 +156,123 @@ public class Rifffish {
 
 		return result;
 	}
+
+	
+	// Rest Machine Management
+	
+	/**
+	 * Gets a machine associated with that machine id (from Rifffish)
+	 * @param machineId
+	 * @return Machine
+	 */
+	public Machine getMachine(int machineId) {
+		Machine machine = null;
+		MachinesService service = restAdapter.create(MachinesService.class);		
+		
+		try {
+			machine = service.getMachine(machineId);
+		} catch(Exception e) {}
+		
+		return machine;
+	}
+	
+	/**
+	 * Update a the past Machine (updates the machine using it's own id)
+	 * @param machine
+	 * @return Machine (newly updated - ID won't change)
+	 */
+	public Machine updateMachine(Machine machine) {
+		Machine machineResponse = null;
+		MachinesService service = restAdapter.create(MachinesService.class);		
+		
+		try {
+			machineResponse = service.updateMachine(machine.getId(), machine);
+		} catch(Exception e) {}
+		
+		return machineResponse;
+	}
+	
+	/**
+	 * Creates a New Machine (see required params)
+	 * @param machine
+	 * @return Machine (the newly created machine), null if machine has error
+	 */
+	public Machine createMachine(Machine machine) {
+		Machine machineResponse = null;
+		MachinesService service = restAdapter.create(MachinesService.class);		
+		
+		try {
+			machineResponse = service.createMachine(machine);
+		} catch(Exception e) {}
+		
+		return machineResponse;
+	}
+	
+	/**
+	 * Deletes the machine with that ID
+	 * @param machineId
+	 * @return Error, null if machine is deleted successfully
+	 */
+	public Error deleteMachine(int machineId) {
+		Error error = null;
+		MachinesService service = restAdapter.create(MachinesService.class);		
+		
+		try {
+			error = service.deleteMachine(machineId);
+			
+			if (!error.foundError()) // Error System Print Legacy.
+				error = null;
+		} catch(Exception e) {}
+		
+		return error;
+	}
+	
+	// Rest Product Management 
+	
+	public Product getProduct(int productId) {
+		Product product = null;
+		ProductsService service = restAdapter.create(ProductsService.class);		
+		
+		try {
+			product = service.getProduct(productId);
+		} catch(Exception e) {}
+		
+		return product;
+	}
+	
+	public Product updateProduct(Product product) {
+		Product productResponse = null;
+		ProductsService service = restAdapter.create(ProductsService.class);		
+		
+		try {
+			productResponse = service.updateProduct(product.getId(), product);
+		} catch(Exception e) {}	
+		
+		return productResponse;
+	}
+	
+	public Product createProduct(Product product) {
+		Product productResponse = null;
+		ProductsService service = restAdapter.create(ProductsService.class);		
+		
+		try {
+			productResponse = service.createProduct(product.getMachineId(), product);
+		} catch(Exception e) {}
+		
+		return productResponse;
+	}
+	
+	public Error deleteProduct(int productId) {
+		Error error = null;
+		ProductsService service = restAdapter.create(ProductsService.class);		
+		
+		try {
+			error = service.deleteProduct(productId);
+			
+			if (!error.foundError()) // Error System Print Legacy.
+				error = null;
+		} catch(Exception e) {}
+		return error;
+	}
+	
 }
