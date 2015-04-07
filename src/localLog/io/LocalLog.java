@@ -17,6 +17,7 @@ import rifffish.Transaction;
 
 public class LocalLog{
 	private boolean available = false;
+	private static final String LOG_FILENAME = "Loggerlog.txt";
 	
 	/**
 	 * Prints a transaction to a local log file
@@ -32,7 +33,7 @@ public class LocalLog{
 	         } 
 	      }
 		
-		  try(    FileWriter fw = new FileWriter("log.txt", true);
+		  try(    FileWriter fw = new FileWriter(LOG_FILENAME, true);
 		          BufferedWriter bw = new BufferedWriter(fw);
 		          PrintWriter out = new PrintWriter(bw)){
 
@@ -61,7 +62,7 @@ public class LocalLog{
 	         } 
 	      }
 		 
-		  try(    FileWriter fw = new FileWriter("log.txt", true);
+		  try(    FileWriter fw = new FileWriter(LOG_FILENAME, true);
 		          BufferedWriter bw = new BufferedWriter(fw);
 		          PrintWriter out = new PrintWriter(bw)){
 
@@ -90,7 +91,7 @@ public class LocalLog{
 		         } 
 		      }
 			 
-			  try(    FileWriter fw = new FileWriter("log.txt", true);
+			  try(    FileWriter fw = new FileWriter(LOG_FILENAME, true);
 			          BufferedWriter bw = new BufferedWriter(fw);
 			          PrintWriter out = new PrintWriter(bw)){
 
@@ -122,7 +123,7 @@ public class LocalLog{
 	      }
 		
 		try {
-			File theFile = new File("log.txt");
+			File theFile = new File(LOG_FILENAME);
 			RandomAccessFile file =  new RandomAccessFile(theFile, "rw");
 			    String line;
 			    String[] split;	            
@@ -179,7 +180,7 @@ public class LocalLog{
 		int result = 0;
 		
 		try {
-			LineNumberReader  lnr = new LineNumberReader(new FileReader(new File("log.txt")));
+			LineNumberReader  lnr = new LineNumberReader(new FileReader(new File(LOG_FILENAME)));
 			lnr.skip(Long.MAX_VALUE);
 			result = lnr.getLineNumber();
 			lnr.close();
