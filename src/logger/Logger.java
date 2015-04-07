@@ -30,8 +30,8 @@ public class Logger{
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
 	 */
-	public Logger(int machineId){
-		this(null, -1, machineId);
+	public Logger(){
+		this(null, -1, 0);
 	}
 	
 	/**
