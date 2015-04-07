@@ -24,14 +24,8 @@ public class LocalLog{
 	 * 
 	 * @param t a transaction object
 	 */
-	public synchronized void printToLocalLog(Transaction t){
-		 while (available == true) {
-	         try {
-	            wait();
-	         }
-	         catch (InterruptedException e) { 
-	         } 
-	      }
+	public synchronized int printToLocalLog(Transaction t){
+		int result = 0;
 		
 		  try(    FileWriter fw = new FileWriter(LOG_FILENAME, true);
 		          BufferedWriter bw = new BufferedWriter(fw);
@@ -42,10 +36,13 @@ public class LocalLog{
 		  }  
 		  catch( IOException e ){
 		      System.out.println("Failed to print to file");// File writing/opening failed at some stage.
+		      result = -1;
 		  }
 		  
 		  available = true;
 		  notifyAll();
+		  
+		return result;
 	}
 	
 	/**
@@ -53,14 +50,9 @@ public class LocalLog{
 	 * 
 	 * @param t a Stockout object
 	 */
-	 public synchronized void printToLocalLog(Stockout t){
-		 while (available == true) {
-	         try {
-	            wait();
-	         }
-	         catch (InterruptedException e) { 
-	         } 
-	      }
+	 public synchronized int printToLocalLog(Stockout t){
+		int result = 0;
+
 		 
 		  try(    FileWriter fw = new FileWriter(LOG_FILENAME, true);
 		          BufferedWriter bw = new BufferedWriter(fw);
@@ -71,10 +63,12 @@ public class LocalLog{
 		  }  
 		  catch( IOException e ){
 		      // File writing/opening failed at some stage.
+				result = -1;
 		  }
 		  
 		  available = true;
 		  notifyAll();
+		return result;
 	}
 	 
 		/**
@@ -82,14 +76,8 @@ public class LocalLog{
 		 * 
 		 * @param t a Problem object
 		 */
-		 public synchronized void printToLocalLog(Problem t){
-			 while (available == true) {
-		         try {
-		            wait();
-		         }
-		         catch (InterruptedException e) { 
-		         } 
-		      }
+		 public synchronized int printToLocalLog(Problem t){
+			int result = 0;
 			 
 			  try(    FileWriter fw = new FileWriter(LOG_FILENAME, true);
 			          BufferedWriter bw = new BufferedWriter(fw);
@@ -100,10 +88,12 @@ public class LocalLog{
 			  }  
 			  catch( IOException e ){
 			      // File writing/opening failed at some stage.
+				  result = -1;
 			  }
 			  
 			  available = true;
 			  notifyAll();
+			return result;
 		}
 	 
 	/**
@@ -111,16 +101,9 @@ public class LocalLog{
 	 *  
 	 * @param r Riffish object
 	 */
-	public synchronized void pushLocalLog(Rifffish r){
+	public synchronized int pushLocalLog(Rifffish r){
+		int result = 0;
 		Error error = null;
-		
-		while (available == false) {
-	         try {
-	            wait();
-	         }
-	         catch (InterruptedException e) { 
-	         } 
-	      }
 		
 		try {
 			File theFile = new File(LOG_FILENAME);
@@ -148,6 +131,9 @@ public class LocalLog{
 			    	}			    	
 			    	
 			    }
+			    file.close();
+			    
+			    System.out.println("Sent logs to server" + error);
 			    
 			    if(error == null){
 			    	File temporaryFileName = new File("temporaryLog.txt");
@@ -158,17 +144,20 @@ public class LocalLog{
 			    	theFile.delete();
 			    	temporaryFileName.renameTo(theFile);
 			    }
-			    file.close();
+			    
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			result = -1;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			result = -1;
 		}
 
 		available = false;
 		notifyAll();
+		return result;
 	}
 	
 	/**
@@ -191,6 +180,7 @@ public class LocalLog{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return result;
 	}
 }

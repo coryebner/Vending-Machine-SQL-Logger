@@ -78,11 +78,15 @@ public class Logger{
 	public void log(Transaction t) {
 		t.id = vendingMachineID;
 		
+		System.out.println("MachineID: " + t.id);
+		
+		if(numberOfTransactions == -1 || numberOfTransactions > 0){
+			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+			w1.start();
+		}
+		
 		if (date == null) {
-			if(numberOfTransactions == -1 || numberOfTransactions > 0){
-				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
-				w1.start();
-			}else if (numberOfTransactions == 0) {
+			if (numberOfTransactions == 0) {
 				// Send to server
 				lastError = r.log(t);
 
@@ -93,11 +97,10 @@ public class Logger{
 				}
 			}
 			
-			if(localLog.getNumLines() >= numberOfTransactions && numberOfTransactions > 0){
-				//Read from file and send each line to the server
-				LocalLogReader r1 = new LocalLogReader(r, localLog);
-				r1.start();
-			}
+			processWaitingLogs();
+		}
+		else{
+			
 		}
  	}
 	
@@ -118,6 +121,7 @@ public class Logger{
 				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
 				w1.start();
 			}
+			processWaitingLogs();
 		}else{
 			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
 			w1.start();
@@ -134,14 +138,26 @@ public class Logger{
 			// Send to server
 			lastError = r.log(t);
 
-			// Add Problem to the local log because it didn't get sent to the server
+			// Add Stockout to the local log because it didn't get sent to the server
 			if (lastError != null) {
 				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
 				w1.start();
 			}
+			processWaitingLogs();
 		}else{
 			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
 			w1.start();
 		}
  	}
+	
+	private void processWaitingLogs(){
+		System.out.println("Number of Lines: " + localLog.getNumLines());
+		
+		if(localLog.getNumLines() >= numberOfTransactions && numberOfTransactions != -1){
+			//Read from file and send each line to the server
+			System.out.println("Processing pending logs");
+			LocalLogReader r1 = new LocalLogReader(r, localLog);
+			r1.start();
+		}
+	}
 }
