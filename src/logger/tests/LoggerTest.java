@@ -44,13 +44,15 @@ public class LoggerTest {
 	@After
 	public void tearDown() throws Exception {
 		logger = null;
-		File theFile = new File("log.txt");
+		File theFile = new File("LoggerLog.txt");
 		File temporaryFileName = new File("temporaryLog.txt");
     	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
 
     	temporaryFile.close();
     	               
-    	theFile.delete();
+    	if(theFile.exists())
+    		theFile.delete();
+    	
     	temporaryFileName.renameTo(theFile);
 	}
 
@@ -102,7 +104,7 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testOfflineLogTransaction() {
-		logger = new Logger(4);
+		logger = new Logger();
 		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
 		//t.id = 4;
 		System.out.println("Transaction happened at: " + t.timestamp);
@@ -115,7 +117,7 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testOfflineLogProblem() {
-		logger = new Logger(4);
+		logger = new Logger();
 		Problem t = new Problem(ProblemTypes.FAIL);
 		t.machine_id = 1;
 		System.out.println("Problem:" + t.timestamp);
@@ -128,7 +130,7 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testOfflineLogStockout() {
-		logger = new Logger(4);
+		logger = new Logger();
 		Stockout t = new Stockout(21, StockoutTypes.OUTOFSTOCK);
 		System.out.println("Stockout Offline: " + t.timestamp);
 		logger.log(t);

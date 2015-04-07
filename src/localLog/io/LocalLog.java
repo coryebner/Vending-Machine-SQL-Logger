@@ -17,7 +17,7 @@ import rifffish.Transaction;
 
 public class LocalLog{
 	private boolean available = false;
-	private static final String LOG_FILENAME = "Loggerlog.txt";
+	private static final String LOG_FILENAME = "LoggerLog.txt";
 	
 	/**
 	 * Prints a transaction to a local log file
