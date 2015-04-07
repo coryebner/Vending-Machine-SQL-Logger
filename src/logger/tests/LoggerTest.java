@@ -14,8 +14,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import rifffish.Rifffish.PaymentMethod;
 import rifffish.Rifffish.StockoutTypes;
 import rifffish.Stockout;
+import rifffish.Transaction;
 
 /**
  * @author Cory Ebner
@@ -50,25 +52,25 @@ public class LoggerTest {
     	temporaryFileName.renameTo(theFile);
 	}
 
-//	/**
-//	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
-//	 */
-//	@Test
-//	public void testLogTransaction() {
-//		logger = new Logger(true, 0);
-//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-//		//t.id = 4;
-//		System.out.println(t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
+	/**
+	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
+	 */
+	@Test
+	public void testLogTransaction() {
+		logger = new Logger(RIFFFISH_API_KEY, 0, 4);
+		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
+		//t.id = 4;
+		System.out.println(t.timestamp);
+		logger.log(t);
+		assertEquals(null, logger.lastError);
+	}
 //
 //	/**
 //	 * Test method for problem
 //	 */
 //	@Test
 //	public void testLogProblem() {
-//		logger = new Logger(true,0);
+//		logger = new Logger(true,0, 4);
 //		Problem t = new Problem(ProblemTypes.FAIL);
 //		t.machine_id = 1;
 //		System.out.println(t.timestamp);
@@ -81,7 +83,7 @@ public class LoggerTest {
 //	 */
 //	@Test
 //	public void testPushLog() {
-//		logger = new Logger(true, 1);
+//		logger = new Logger(true, 1, 4);
 //		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
 //		System.out.println("Transaction: " + t.timestamp);
 //		logger.log(t);
@@ -100,7 +102,7 @@ public class LoggerTest {
 //	 */
 //	@Test
 //	public void testOfflineLogTransaction() {
-//		logger = new Logger();
+//		logger = new Logger(4);
 //		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
 //		//t.id = 4;
 //		System.out.println("Transaction happened at: " + t.timestamp);
@@ -113,7 +115,7 @@ public class LoggerTest {
 //	 */
 //	@Test
 //	public void testOfflineLogProblem() {
-//		logger = new Logger();
+//		logger = new Logger(4);
 //		Problem t = new Problem(ProblemTypes.FAIL);
 //		t.machine_id = 1;
 //		System.out.println("Problem:" + t.timestamp);
@@ -126,8 +128,8 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testOfflineLogStockout() {
-		logger = new Logger();
-		Stockout t = new Stockout(1, StockoutTypes.OUTOFSTOCK);
+		logger = new Logger(4);
+		Stockout t = new Stockout(21, StockoutTypes.OUTOFSTOCK);
 		System.out.println("Stockout Offline: " + t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);
@@ -138,8 +140,8 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testLogStockout() {
-		logger = new Logger(RIFFFISH_API_KEY,0);
-		Stockout t = new Stockout(1, StockoutTypes.ALMOSTOUT);
+		logger = new Logger(RIFFFISH_API_KEY,0, 4);
+		Stockout t = new Stockout(21, StockoutTypes.ALMOSTOUT);
 		System.out.println("Stockout: " + t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);

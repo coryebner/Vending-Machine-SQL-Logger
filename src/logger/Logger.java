@@ -30,8 +30,8 @@ public class Logger{
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
 	 */
-	public Logger(){
-		this(null, -1);
+	public Logger(int machineId){
+		this(null, -1, machineId);
 	}
 	
 	/**
@@ -40,8 +40,9 @@ public class Logger{
 	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately sent to the server
 	 * @param internetEnabled true/false
 	 */
-	public Logger(String rifffish_api_key, int numberOfTransactions){
+	public Logger(String rifffish_api_key, int numberOfTransactions, int machineId){
 		localLog = new LocalLog();
+		vendingMachineID = machineId;
 		
 		if(rifffish_api_key != null){
 			r = new Rifffish(rifffish_api_key, RIFFFISH_API_URL);
@@ -57,8 +58,9 @@ public class Logger{
 	 * @param internetEnabled, true/false
 	 * @param date the set time logging scheme to use
 	 */
-	public Logger(String rifffish_api_key, LogDate date){
+	public Logger(String rifffish_api_key, LogDate date, int machineId){
 		localLog = new LocalLog();
+		vendingMachineID = machineId;
 		
 		if(rifffish_api_key != null){
 			r = new Rifffish(rifffish_api_key, RIFFFISH_API_URL);
@@ -74,6 +76,7 @@ public class Logger{
 	 * @param t, A transaction that is being logged
 	 */
 	public void log(Transaction t) {
+		t.id = vendingMachineID;
 		
 		if (date == null) {
 			if(numberOfTransactions == -1 || numberOfTransactions > 0){
@@ -103,7 +106,9 @@ public class Logger{
 	 * Logs a Problem to our API
 	 * @param t A problem that is being logged
 	 */
-	public void log(Problem t) {		
+	public void log(Problem t) {
+		t.machine_id = vendingMachineID;
+		
 		if (numberOfTransactions != -1) {
 			// Send to server
 			lastError = r.log(t);
