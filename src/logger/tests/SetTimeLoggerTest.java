@@ -7,7 +7,10 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.time.LocalDateTime;
 
+import logger.LogDate;
+import logger.LogDate.LoggingType;
 import logger.Logger;
 
 import org.junit.After;
@@ -15,11 +18,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import rifffish.Problem;
+import rifffish.Stockout;
+import rifffish.Transaction;
 import rifffish.Rifffish.PaymentMethod;
 import rifffish.Rifffish.ProblemTypes;
 import rifffish.Rifffish.StockoutTypes;
-import rifffish.Stockout;
-import rifffish.Transaction;
 
 /**
  * @author Cory Ebner
@@ -28,6 +31,10 @@ import rifffish.Transaction;
 public class SetTimeLoggerTest {
 	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
+	private LocalDateTime today = null;
+	private int day;
+	private int hour;
+	private int minute;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -35,7 +42,10 @@ public class SetTimeLoggerTest {
 	@Before
 	public void setUp() throws Exception {
 		// Local dev testing, API Key will need to be regenerated
-		//logger = new Logger(true, 0);
+		today = LocalDateTime.now();
+		day = today.getDayOfMonth();
+		hour = today.getHour();
+		minute = today.getMinute();
 	}
 
 	/**
@@ -56,5 +66,27 @@ public class SetTimeLoggerTest {
     	temporaryFileName.renameTo(theFile);
 	}
 
-	
+	@Test
+	public void DailyLoggerTest(){
+		logger = new Logger(RIFFFISH_API_KEY, new LogDate(LoggingType.DAILY, this.day, this.hour, this.minute + 1), 4);
+		
+		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
+		System.out.println("Transaction @ " + t.getTimestamp());
+		logger.log(t);
+		
+		try {
+			Thread.currentThread().sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Transaction y = new Transaction(21, PaymentMethod.COIN, true);
+		System.out.println("Transaction @ " + y.getTimestamp());
+		logger.log(y);
+		
+		while(logger.getLocalLog().getTransactionsInLocalLog() > 0){
+			
+		}
+	}
 }

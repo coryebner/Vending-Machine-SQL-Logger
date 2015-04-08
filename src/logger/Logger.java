@@ -64,9 +64,14 @@ public class Logger{
 	public Logger(String rifffish_api_key, LogDate date, int machineId){
 		localLog = new LocalLog();
 		vendingMachineID = machineId;
+		this.date = date;
 		
 		if(rifffish_api_key != null){
 			r = new Rifffish(rifffish_api_key, RIFFFISH_API_URL);
+			if(date != null){
+				SetTimeLogger s1 = new SetTimeLogger(r, localLog, date);
+				s1.start();
+			}
 			
 		}else{
 			this.numberOfTransactions = -1;
@@ -103,7 +108,9 @@ public class Logger{
 			processWaitingLogs();
 		}
 		else{
-			
+			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+			threads.add(w1);
+			w1.start();
 		}
  	}
 	

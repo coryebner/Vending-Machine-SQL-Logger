@@ -191,10 +191,10 @@ public class LocalLog {
 			lnr.close();
 		} catch (FileNotFoundException e) {
 			result = 0;
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return result;

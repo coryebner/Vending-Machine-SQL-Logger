@@ -1,10 +1,7 @@
 package logger;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.Calendar;
 
 import localLog.io.LocalLog;
@@ -13,8 +10,6 @@ import rifffish.Rifffish;
 public class SetTimeLogger extends Thread{
 	private LocalLog log;
 	private Rifffish r;
-	private Calendar CurrentCal;
-	private Calendar cal;
 	private LocalDateTime today;
 	private LocalDateTime nextBatch;
 	private String type;
@@ -23,8 +18,8 @@ public class SetTimeLogger extends Thread{
 	public SetTimeLogger(Rifffish r, LocalLog log, LogDate date) {
 		this.log = log;
 		this.r = r;
-		this.cal = Calendar.getInstance();
-		this.CurrentCal= Calendar.getInstance();
+		Calendar.getInstance();
+		Calendar.getInstance();
 		this.type = date.getType();
 		this.date = date;
 		
@@ -39,10 +34,14 @@ public class SetTimeLogger extends Thread{
 	}
 	
 	public void run(){
-		while(true){	
+		System.out.println("Starting settime thread");
+		while(true){
+			today = LocalDateTime.now();
+			System.out.println("Next Batch: " + nextBatch);
 			if(nextBatch.isBefore(today)|| nextBatch.isEqual(today)){
+				System.out.println("Pushing log");
 				log.pushLocalLog(r);
-				getNextBatchTime(nextBatch, date);	
+				nextBatch = getNextBatchTime(nextBatch, date);	
 			}
 			else{
 				long sleeptime = today.until(nextBatch, ChronoUnit.MILLIS);

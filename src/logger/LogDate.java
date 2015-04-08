@@ -5,7 +5,7 @@ public class LogDate{
 	private int hour;
 	private int minute;
 	private LoggingType type;
-	private static enum LoggingType {DAILY, WEEKLY, MONTHLY};
+	public static enum LoggingType {DAILY, WEEKLY, MONTHLY};
 	
 	/**
 	 * Date object to store info needed for Set time logging
