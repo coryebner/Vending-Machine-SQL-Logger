@@ -3,8 +3,6 @@
  */
 package logger.tests;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.time.LocalDateTime;
@@ -17,12 +15,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import rifffish.Problem;
-import rifffish.Stockout;
 import rifffish.Transaction;
 import rifffish.Rifffish.PaymentMethod;
-import rifffish.Rifffish.ProblemTypes;
-import rifffish.Rifffish.StockoutTypes;
 
 /**
  * @author Cory Ebner
@@ -75,7 +69,8 @@ public class SetTimeLoggerTest {
 		logger.log(t);
 		
 		try {
-			Thread.currentThread().sleep(500);
+			Thread.currentThread();
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

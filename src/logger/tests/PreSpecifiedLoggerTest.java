@@ -15,11 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import rifffish.Problem;
 import rifffish.Rifffish.PaymentMethod;
-import rifffish.Rifffish.ProblemTypes;
-import rifffish.Rifffish.StockoutTypes;
-import rifffish.Stockout;
 import rifffish.Transaction;
 
 /**
