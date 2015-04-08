@@ -39,7 +39,8 @@ public class Logger{
 	}
 	
 	/**
-	 * Creates a logger that sends logs to a remote server after a set amount of transactions
+	 * Creates a logger that sends logs to a remote server after a set amount of transactions. 
+	 * Not guaranteed to log on the exact specified transaction due to threading.
 	 * 
 	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately sent to the server
 	 * @param internetEnabled true/false
@@ -159,13 +160,10 @@ public class Logger{
  	}
 	
 	private void processWaitingLogs(){
-		System.out.println("Starting processWaitingLogs: " + localLog.getNumLines() + " lines");
-		if((localLog.getNumLines() >= numberOfTransactions) && (numberOfTransactions != -1)){
-			System.out.println("in if " + localLog.getNumLines() + " lines");
+		if((localLog.getTransactionsInLocalLog() >= numberOfTransactions) && (numberOfTransactions != -1)){
 			//Read from file and send each line to the server
 			LocalLogReader r1 = new LocalLogReader(r, localLog);
 			threads.add(r1);
-			System.out.println("starting r1");
 			r1.start();
 		}
 	}

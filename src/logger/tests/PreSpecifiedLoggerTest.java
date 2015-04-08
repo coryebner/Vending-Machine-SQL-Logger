@@ -30,19 +30,19 @@ public class PreSpecifiedLoggerTest {
 	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
 	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		File theFile = new File("LoggerLog.txt");
-		File temporaryFileName = new File("temporaryLog.txt");
-    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
-
-    	temporaryFile.close();
-    	               
-    	if(theFile.exists())
-    		theFile.delete();
-    	
-    	temporaryFileName.renameTo(theFile);
-	}
+//	@BeforeClass
+//	public static void setUpBeforeClass() throws Exception {
+//		File theFile = new File("LoggerLog.txt");
+//		File temporaryFileName = new File("temporaryLog.txt");
+//    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
+//
+//    	temporaryFile.close();
+//    	               
+//    	if(theFile.exists())
+//    		theFile.delete();
+//    	
+//    	temporaryFileName.renameTo(theFile);
+//	}
 	
 	/**
 	 * @throws java.lang.Exception
@@ -75,8 +75,7 @@ public class PreSpecifiedLoggerTest {
 		Transaction z = new Transaction(21, PaymentMethod.CREDIT_CARD, true);
 		System.out.println("Transaction: " + z.timestamp);
 		logger.log(z);
-		
-		System.out.println(logger.getThreads().size());
+
 		for(int i = 0; i < logger.getThreads().size(); i++){
 			try {
 				logger.getThreads().get(i).join();
@@ -86,6 +85,7 @@ public class PreSpecifiedLoggerTest {
 			}
 		}
 		
+		logger.log(z);
 		assertEquals(null, logger.lastError);
 		
 	}
