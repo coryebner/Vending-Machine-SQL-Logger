@@ -12,6 +12,7 @@ import logger.Logger;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import rifffish.Problem;
@@ -25,7 +26,7 @@ import rifffish.Transaction;
  * @author Cory Ebner
  *
  */
-public class LoggerTest {
+public class ImmediateLoggerTest {
 	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
 	
@@ -35,7 +36,7 @@ public class LoggerTest {
 	@Before
 	public void setUp() throws Exception {
 		// Local dev testing, API Key will need to be regenerated
-		//logger = new Logger(true, 0);
+		logger = new Logger(RIFFFISH_API_KEY, 0, 4);
 	}
 
 	/**
@@ -44,6 +45,10 @@ public class LoggerTest {
 	@After
 	public void tearDown() throws Exception {
 		logger = null;
+	}
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		File theFile = new File("LoggerLog.txt");
 		File temporaryFileName = new File("temporaryLog.txt");
     	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
@@ -61,7 +66,6 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testLogTransaction() {
-		logger = new Logger(RIFFFISH_API_KEY, 0, 4);
 		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
 		System.out.println(t.timestamp);
 		logger.log(t);
@@ -73,66 +77,8 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testLogProblem() {
-		logger = new Logger(RIFFFISH_API_KEY,0, 4);
 		Problem t = new Problem(ProblemTypes.FAIL);
 		System.out.println(t.timestamp);
-		logger.log(t);
-		assertEquals(null, logger.lastError);
-	}
-	
-	/**
-	 * Test method for pushing locallog to server
-	 */
-	@Test
-	public void testPushLog() {
-		logger = new Logger(RIFFFISH_API_KEY, 1, 4);
-		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-		System.out.println("Transaction: " + t.timestamp);
-		logger.log(t);
-		assertEquals(null, logger.lastError);
-		
-		try {
-			Thread.currentThread().sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
-	 */
-	@Test
-	public void testOfflineLogTransaction() {
-		logger = new Logger();
-		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-		//t.id = 4;
-		System.out.println("Transaction happened at: " + t.timestamp);
-		logger.log(t);
-		assertEquals(null, logger.lastError);
-	}
-
-	/**
-	 * Test method for problem
-	 */
-	@Test
-	public void testOfflineLogProblem() {
-		logger = new Logger();
-		Problem t = new Problem(ProblemTypes.FAIL);
-		t.machine_id = 1;
-		System.out.println("Problem:" + t.timestamp);
-		logger.log(t);
-		assertEquals(null, logger.lastError);
-	}
-	
-	/**
-	 * Test method for offline stockout
-	 */
-	@Test
-	public void testOfflineLogStockout() {
-		logger = new Logger();
-		Stockout t = new Stockout(21, StockoutTypes.OUTOFSTOCK);
-		System.out.println("Stockout Offline: " + t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);
 	}
@@ -142,10 +88,33 @@ public class LoggerTest {
 	 */
 	@Test
 	public void testLogStockout() {
-		logger = new Logger(RIFFFISH_API_KEY,0, 4);
 		Stockout t = new Stockout(21, StockoutTypes.ALMOSTOUT);
 		System.out.println("Stockout: " + t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);
+	}
+	
+	/**
+	 * Tests sending pending logs to the server in the event logs are not sent to the server previously
+	 */
+	@Test
+	public void testPendingInstantlogs(){
+		Stockout s = new Stockout(21, StockoutTypes.OUTOFSTOCK);
+		logger.getLocalLog().printToLocalLog(s);
+		Problem p = new Problem(ProblemTypes.FAIL);
+		p.machine_id = 4;
+		logger.getLocalLog().printToLocalLog(p);
+		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
+		
+		logger.log(t);
+		
+		for(int i = 0; i < logger.getThreads().size(); i++){
+			try {
+				logger.getThreads().get(i).join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
