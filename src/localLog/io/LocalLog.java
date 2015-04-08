@@ -27,7 +27,6 @@ public class LocalLog {
 	public LocalLog() {
 		super();
 		setTransactionsInLocalLog(getNumLines());
-		System.out.println("existing transactions " + getTransactionsInLocalLog());
 	}
 
 	/**
