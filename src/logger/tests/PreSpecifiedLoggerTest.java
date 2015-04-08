@@ -30,19 +30,19 @@ public class PreSpecifiedLoggerTest {
 	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
 	
-//	@BeforeClass
-//	public static void setUpBeforeClass() throws Exception {
-//		File theFile = new File("LoggerLog.txt");
-//		File temporaryFileName = new File("temporaryLog.txt");
-//    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
-//
-//    	temporaryFile.close();
-//    	               
-//    	if(theFile.exists())
-//    		theFile.delete();
-//    	
-//    	temporaryFileName.renameTo(theFile);
-//	}
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		File theFile = new File("LoggerLog.txt");
+		File temporaryFileName = new File("temporaryLog.txt");
+    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
+
+    	temporaryFile.close();
+    	               
+    	if(theFile.exists())
+    		theFile.delete();
+    	
+    	temporaryFileName.renameTo(theFile);
+	}
 	
 	/**
 	 * @throws java.lang.Exception

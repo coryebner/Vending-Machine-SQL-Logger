@@ -29,145 +29,32 @@ public class SetTimeLoggerTest {
 	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
 	
-//	/**
-//	 * @throws java.lang.Exception
-//	 */
-//	@Before
-//	public void setUp() throws Exception {
-//		// Local dev testing, API Key will need to be regenerated
-//		//logger = new Logger(true, 0);
-//	}
-//
-//	/**
-//	 * @throws java.lang.Exception
-//	 */
-//	@After
-//	public void tearDown() throws Exception {
-//		logger = null;
-//		File theFile = new File("LoggerLog.txt");
-//		File temporaryFileName = new File("temporaryLog.txt");
-//    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
-//
-//    	temporaryFile.close();
-//    	               
-//    	if(theFile.exists())
-//    		theFile.delete();
-//    	
-//    	temporaryFileName.renameTo(theFile);
-//	}
-//
-//	/**
-//	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
-//	 */
-//	@Test
-//	public void testLogTransaction() {
-//		logger = new Logger(RIFFFISH_API_KEY, 0, 4);
-//		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
-//		System.out.println(t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//
-//	/**
-//	 * Test method for problem
-//	 */
-//	@Test
-//	public void testLogProblem() {
-//		logger = new Logger(RIFFFISH_API_KEY,0, 4);
-//		Problem t = new Problem(ProblemTypes.FAIL);
-//		System.out.println(t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//	
-//	/**
-//	 * Test method for pushing locallog to server
-//	 */
-//	@Test
-//	public void testPushLog() {
-//		logger = new Logger(RIFFFISH_API_KEY, 1, 4);
-//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-//		System.out.println("Transaction: " + t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//		
-//		try {
-//			Thread.currentThread().sleep(10000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//	
-//	/**
-//	 * Test method for {@link logger.Logger#log(rifffish.Transaction)}.
-//	 */
-//	@Test
-//	public void testOfflineLogTransaction() {
-//		logger = new Logger();
-//		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-//		System.out.println("Transaction happened at: " + t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//
-//	/**
-//	 * Test method for problem
-//	 */
-//	@Test
-//	public void testOfflineLogProblem() {
-//		logger = new Logger();
-//		Problem t = new Problem(ProblemTypes.FAIL);
-//		System.out.println("Problem:" + t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//	
-//	/**
-//	 * Test method for offline stockout
-//	 */
-//	@Test
-//	public void testOfflineLogStockout() {
-//		logger = new Logger();
-//		Stockout t = new Stockout(21, StockoutTypes.OUTOFSTOCK);
-//		System.out.println("Stockout Offline: " + t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-//	
-//	/**
-//	 * Test method for stockout
-//	 */
-//	@Test
-//	public void testLogStockout() {
-//		logger = new Logger(RIFFFISH_API_KEY,0, 4);
-//		Stockout t = new Stockout(21, StockoutTypes.ALMOSTOUT);
-//		System.out.println("Stockout: " + t.timestamp);
-//		logger.log(t);
-//		assertEquals(null, logger.lastError);
-//	}
-	
 	/**
-	 * Tests sending pending logs to the server in the event logs are not sent to the server previously
+	 * @throws java.lang.Exception
 	 */
-	@Test
-	public void testPendingInstantlogs(){
-		Logger logger1 = new Logger(RIFFFISH_API_KEY, -1, 4);
-		Logger logger2 = new Logger(RIFFFISH_API_KEY, 0, 4);
-		
-		//Stockout s = new Stockout(21, StockoutTypes.OUTOFSTOCK);
-		//logger1.log(s);
-		//Problem p = new Problem(ProblemTypes.FAIL);
-		//logger1.log(p);
-		Transaction t = new Transaction(1, PaymentMethod.COIN, true);
-		
-		try {
-			Thread.currentThread().sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		logger2.log(t);		
+	@Before
+	public void setUp() throws Exception {
+		// Local dev testing, API Key will need to be regenerated
+		//logger = new Logger(true, 0);
 	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		logger = null;
+		File theFile = new File("LoggerLog.txt");
+		File temporaryFileName = new File("temporaryLog.txt");
+    	RandomAccessFile temporaryFile= new RandomAccessFile(temporaryFileName , "rw");
+
+    	temporaryFile.close();
+    	               
+    	if(theFile.exists())
+    		theFile.delete();
+    	
+    	temporaryFileName.renameTo(theFile);
+	}
+
+	
 }

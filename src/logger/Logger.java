@@ -1,8 +1,6 @@
 package logger;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import localLog.io.LocalLog;
 import localLog.io.LocalLogReader;
 import localLog.io.LocalLogWriter;

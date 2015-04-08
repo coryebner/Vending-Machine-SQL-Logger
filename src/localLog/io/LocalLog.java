@@ -16,7 +16,6 @@ import rifffish.Stockout;
 import rifffish.Transaction;
 
 public class LocalLog {
-	private boolean available = false;
 	private static final String LOG_FILENAME = "LoggerLog.txt";
 	private int numTransactionsInLocalLog = 0;
 
