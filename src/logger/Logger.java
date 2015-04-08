@@ -41,7 +41,8 @@ public class Logger{
 	 * Not guaranteed to log on the exact specified transaction due to threading.
 	 * 
 	 * @param numberOfTransactions the number of transactions that need to occur before they are sent to the server. 0 = immediately sent to the server
-	 * @param internetEnabled true/false
+	 * @param rifffish_api_key api key given by the server. See profile page when logged in
+	 * @param machineId Id of the vending machine that the server gives you
 	 */
 	public Logger(String rifffish_api_key, int numberOfTransactions, int machineId){
 		localLog = new LocalLog();
@@ -58,8 +59,9 @@ public class Logger{
 	/**
 	 * Creates a Logger that sends the logs to a remote server at a set time
 	 * 
-	 * @param internetEnabled, true/false
+	 * @param rifffish_api_key api key given by the server. See profile page when logged in
 	 * @param date the set time logging scheme to use
+	 * @param machineId Id of the vending machine that the server gives you
 	 */
 	public Logger(String rifffish_api_key, LogDate date, int machineId){
 		localLog = new LocalLog();

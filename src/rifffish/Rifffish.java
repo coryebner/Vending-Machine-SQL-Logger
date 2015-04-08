@@ -162,7 +162,7 @@ public class Rifffish {
 	
 	/**
 	 * Gets a machine associated with that machine id (from Rifffish)
-	 * @param machineId
+	 * @param machineId Id of the vending machine that the server gives you
 	 * @return Machine
 	 */
 	public Machine getMachine(int machineId) {
@@ -178,7 +178,7 @@ public class Rifffish {
 	
 	/**
 	 * Update a the past Machine (updates the machine using it's own id)
-	 * @param machine
+	 * @param machine vending machine object
 	 * @return Machine (newly updated - ID won't change)
 	 */
 	public Machine updateMachine(Machine machine) {
@@ -194,7 +194,7 @@ public class Rifffish {
 	
 	/**
 	 * Creates a New Machine (see required params)
-	 * @param machine
+	 * @param machine vending machine object
 	 * @return Machine (the newly created machine), null if machine has error
 	 */
 	public Machine createMachine(Machine machine) {
@@ -210,7 +210,7 @@ public class Rifffish {
 	
 	/**
 	 * Deletes the machine with that ID
-	 * @param machineId
+	 * @param machineId Id of the vending machine that the server gives you
 	 * @return Error, null if machine is deleted successfully
 	 */
 	public Error deleteMachine(int machineId) {

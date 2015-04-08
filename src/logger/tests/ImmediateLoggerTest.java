@@ -30,18 +30,14 @@ public class ImmediateLoggerTest {
 	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
 	
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		// Local dev testing, API Key will need to be regenerated
 		logger = new Logger(RIFFFISH_API_KEY, 0, 4);
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@After
 	public void tearDown() throws Exception {
 		logger = null;

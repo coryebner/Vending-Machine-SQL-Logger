@@ -32,8 +32,8 @@ public class LocalLog {
 	/**
 	 * Prints a transaction to a local log file
 	 * 
-	 * @param t
-	 *            a transaction object
+	 * @param t a transaction object
+	 * @return 0 for not problem, -1 for problem
 	 */
 	synchronized public int printToLocalLog(Transaction t) {
 		int result = 0;
@@ -62,8 +62,8 @@ public class LocalLog {
 	/**
 	 * Prints a Stockout to a local log file
 	 * 
-	 * @param t
-	 *            a Stockout object
+	 * @param t a Stockout object
+	 * @return for not problem, -1 for problem
 	 */
 	synchronized public int printToLocalLog(Stockout t) {
 		int result = 0;
@@ -87,8 +87,8 @@ public class LocalLog {
 	/**
 	 * Prints a Problem to a local log file
 	 * 
-	 * @param t
-	 *            a Problem object
+	 * @param t a Problem object
+	 * @return for not problem, -1 for problem
 	 */
 	synchronized public int printToLocalLog(Problem t) {
 		int result = 0;
@@ -112,8 +112,8 @@ public class LocalLog {
 	/**
 	 * Sends any local logs to the server. NOT SAFE.
 	 * 
-	 * @param r
-	 *            Riffish object
+	 * @param r Riffish object
+	 * @return for not problem, -1 for problem
 	 */
 	synchronized public int pushLocalLog(Rifffish r) {
 		int result = 0;
@@ -208,7 +208,7 @@ public class LocalLog {
 	}
 
 	/**
-	 * @param numTransactionsInLocalLog the transactionsInLocalLog to set
+	 * @param amount the amount to add to numTransactionsInLocalLog
 	 */
 	public void addToTransactionsInLocalLog(int amount) {
 		this.numTransactionsInLocalLog += amount;

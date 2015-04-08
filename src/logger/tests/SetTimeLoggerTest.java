@@ -30,9 +30,7 @@ public class SetTimeLoggerTest {
 	private int hour;
 	private int minute;
 	
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@Before
 	public void setUp() throws Exception {
 		// Local dev testing, API Key will need to be regenerated
@@ -42,9 +40,7 @@ public class SetTimeLoggerTest {
 		minute = today.getMinute();
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
+
 	@After
 	public void tearDown() throws Exception {
 		logger = null;

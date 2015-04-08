@@ -1,2 +1,6 @@
+localLog.io
 logger
+logger.tests
 rifffish
+rifffish.endpoints
+rifffish.tests
