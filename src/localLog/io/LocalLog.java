@@ -39,9 +39,6 @@ public class LocalLog{
 		      result = -1;
 		  }
 		  
-		  available = true;
-		  notifyAll();
-		  
 		return result;
 	}
 	
@@ -65,9 +62,7 @@ public class LocalLog{
 		      // File writing/opening failed at some stage.
 				result = -1;
 		  }
-		  
-		  available = true;
-		  notifyAll();
+
 		return result;
 	}
 	 
@@ -90,9 +85,7 @@ public class LocalLog{
 			      // File writing/opening failed at some stage.
 				  result = -1;
 			  }
-			  
-			  available = true;
-			  notifyAll();
+
 			return result;
 		}
 	 
@@ -115,8 +108,8 @@ public class LocalLog{
 			       // process the line.
 			    	split = line.split(",");
 			    	if(split[0].equals("Transaction")){
-			    		Transaction t = new Transaction(Integer.parseInt(split[3]), r.valueOfPayment(split[4]), Boolean.valueOf(split[5]));
-			    		t.id = Integer.parseInt(split[2]);
+			    		Transaction t = new Transaction(Integer.parseInt(split[2]), r.valueOfPayment(split[4]), Boolean.valueOf(split[5]));
+			    		t.id = Integer.parseInt(split[1]);
 			    		t.timestamp = split[6];
 			    		r.log(t);
 			    	}else if(split[0].equals("Problem")){
@@ -132,8 +125,6 @@ public class LocalLog{
 			    	
 			    }
 			    file.close();
-			    
-			    System.out.println("Sent logs to server" + error);
 			    
 			    if(error == null){
 			    	File temporaryFileName = new File("temporaryLog.txt");
@@ -155,8 +146,6 @@ public class LocalLog{
 			result = -1;
 		}
 
-		available = false;
-		notifyAll();
 		return result;
 	}
 	

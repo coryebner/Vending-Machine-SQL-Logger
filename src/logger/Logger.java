@@ -1,5 +1,8 @@
 package logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import localLog.io.LocalLog;
 import localLog.io.LocalLogReader;
 import localLog.io.LocalLogWriter;
@@ -26,6 +29,7 @@ public class Logger{
 	private int numberOfTransactions = 0;
 	private LogDate date = null;
 	private LocalLog localLog;
+	ArrayList<Thread> threads = new ArrayList<Thread>();
 	
 	/**
 	 * Creates a logger that uses a default Offline logging scheme
@@ -78,10 +82,9 @@ public class Logger{
 	public void log(Transaction t) {
 		t.id = vendingMachineID;
 		
-		System.out.println("MachineID: " + t.id);
-		
 		if(numberOfTransactions == -1 || numberOfTransactions > 0){
 			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+			threads.add(w1);
 			w1.start();
 		}
 		
@@ -93,6 +96,7 @@ public class Logger{
 				// Add transaction to the local log because it didn't get sent to the server
 				if (lastError != null) {
 					LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+					threads.add(w1);
 					w1.start();
 				}
 			}
@@ -119,11 +123,13 @@ public class Logger{
 			// Add Problem to the local log because it didn't get sent to the server
 			if (lastError != null) {
 				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+				threads.add(w1);
 				w1.start();
 			}
 			processWaitingLogs();
 		}else{
 			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+			threads.add(w1);
 			w1.start();
 		}
  	}
@@ -141,23 +147,40 @@ public class Logger{
 			// Add Stockout to the local log because it didn't get sent to the server
 			if (lastError != null) {
 				LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+				threads.add(w1);
 				w1.start();
 			}
 			processWaitingLogs();
 		}else{
 			LocalLogWriter w1 = new LocalLogWriter(localLog,t);
+			threads.add(w1);
 			w1.start();
 		}
  	}
 	
 	private void processWaitingLogs(){
-		System.out.println("Number of Lines: " + localLog.getNumLines());
-		
-		if(localLog.getNumLines() >= numberOfTransactions && numberOfTransactions != -1){
+		System.out.println("Starting processWaitingLogs: " + localLog.getNumLines() + " lines");
+		if((localLog.getNumLines() >= numberOfTransactions) && (numberOfTransactions != -1)){
+			System.out.println("in if " + localLog.getNumLines() + " lines");
 			//Read from file and send each line to the server
-			System.out.println("Processing pending logs");
 			LocalLogReader r1 = new LocalLogReader(r, localLog);
+			threads.add(r1);
+			System.out.println("starting r1");
 			r1.start();
 		}
+	}
+
+	/**
+	 * @return the localLog
+	 */
+	public LocalLog getLocalLog() {
+		return localLog;
+	}
+
+	/**
+	 * @return the threads
+	 */
+	public ArrayList<Thread> getThreads() {
+		return threads;
 	}
 }

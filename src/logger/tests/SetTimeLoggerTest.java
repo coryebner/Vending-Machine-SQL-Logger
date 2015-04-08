@@ -25,7 +25,7 @@ import rifffish.Transaction;
  * @author Cory Ebner
  *
  */
-public class LoggerTest {
+public class SetTimeLoggerTest {
 	final String RIFFFISH_API_KEY = "rsh_rDWPv1x18utNfeDOqmeQrgtt";
 	private Logger logger = null;
 	
