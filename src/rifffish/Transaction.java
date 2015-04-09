@@ -49,9 +49,11 @@ public class Transaction {
 				return "credit_cards";
 		case PAYPAL:				
 				return "paypal";
+		case MIXED:				
+			return "mixed";
 				
-			default:
-				return null;
+		default:
+			return null;
 		}
 	}
 

@@ -12,7 +12,7 @@ public class Rifffish {
 	private RestAdapter restAdapter = null;
 	private final static String RIFFFISH_API_URL = "http://rifffish.com/api";
 	
-	public static enum PaymentMethod {COIN, CREDIT_CARD, PAYPAL};
+	public static enum PaymentMethod {COIN, CREDIT_CARD, PAYPAL, MIXED};
 	public static enum ProblemTypes {OUTOFORDER, FAIL};
 	public static enum StockoutTypes {OUTOFSTOCK, ALMOSTOUT};
 	
@@ -117,6 +117,9 @@ public class Rifffish {
 			break;
 		case "paypal":
 			result = PaymentMethod.PAYPAL;
+			break;
+		case "mixed":
+			result = PaymentMethod.MIXED;
 			break;
 		default:
 			break;

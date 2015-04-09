@@ -62,7 +62,7 @@ public class ImmediateLoggerTest {
 	 */
 	@Test
 	public void testLogTransaction() {
-		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
+		Transaction t = new Transaction(21, PaymentMethod.MIXED, true);
 		System.out.println(t.timestamp);
 		logger.log(t);
 		assertEquals(null, logger.lastError);
