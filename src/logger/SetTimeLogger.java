@@ -26,7 +26,12 @@ public class SetTimeLogger extends Thread{
 		//cal.set(CurrentCal.YEAR, CurrentCal.MONTH, date.getDay(), date.getHour(), date.getMinute());
 		
 		today = LocalDateTime.now();
-		nextBatch = LocalDateTime.of(today.getYear(), today.getMonthValue(), date.getDay(), date.getHour(), date.getMinute());
+		
+		try {
+			nextBatch = LocalDateTime.of(today.getYear(), today.getMonthValue(), date.getDay(), date.getHour(), date.getMinute());
+		} catch (Exception e) {
+			setDefaultSetTime();
+		}
 		
 		if(nextBatch.isBefore(today)){
 			getNextBatchTime(nextBatch, date);
@@ -34,13 +39,12 @@ public class SetTimeLogger extends Thread{
 	}
 	
 	public void run(){
-		System.out.println("Starting settime thread");
 		while(true){
 			today = LocalDateTime.now();
-			System.out.println("Next Batch: " + nextBatch);
 			if(nextBatch.isBefore(today)|| nextBatch.isEqual(today)){
-				System.out.println("Pushing log");
-				log.pushLocalLog(r);
+				if(log.getTransactionsInLocalLog() > 0)
+					log.pushLocalLog(r);
+				
 				nextBatch = getNextBatchTime(nextBatch, date);	
 			}
 			else{
@@ -67,5 +71,9 @@ public class SetTimeLogger extends Thread{
 			nextBatch = currentBatchTime.plusMonths(1);
 		
 		return nextBatch;
+	}
+	
+	private void setDefaultSetTime(){
+		this.nextBatch = LocalDateTime.of(today.getYear(), today.getMonthValue(), 1, 1, 1);
 	}
 }

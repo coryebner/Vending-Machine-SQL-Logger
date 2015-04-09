@@ -11,8 +11,8 @@ public class LogDate{
 	 * Date object to store info needed for Set time logging
 	 * 
 	 * @param type A LoggingType enum
-	 * @param startDay Day to send logs to the server. All future logs are based on this date.
-	 * @param startHour Hour to send the logs to the server; 0-23
+	 * @param startDay Day to send logs to the server. All future logs are based on this date. Valid values: 1-31
+	 * @param startHour Hour to send the logs to the server; Valid values: 0-23
 	 * @param startMinute Minute to send the logs to the server; 0-59
 	 */
 	public LogDate(LoggingType type, int startDay, int startHour, int startMinute){

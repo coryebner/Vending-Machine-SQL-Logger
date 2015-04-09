@@ -57,7 +57,9 @@ public class Logger{
 	}
 	
 	/**
-	 * Creates a Logger that sends the logs to a remote server at a set time
+	 * Creates a Logger that sends the logs to a remote server at a set time.
+	 * If an invalid date is entered the default is:
+	 * 	1:01am on the 1st of the month
 	 * 
 	 * @param rifffish_api_key api key given by the server. See profile page when logged in
 	 * @param date the set time logging scheme to use

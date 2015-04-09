@@ -80,4 +80,54 @@ public class SetTimeLoggerTest {
 			
 		}
 	}
+	
+	@Test
+	public void DailyLoggerTestBadDay(){
+		logger = new Logger(RIFFFISH_API_KEY, new LogDate(LoggingType.DAILY, 45, this.hour, this.minute + 1), 4);
+		
+		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
+		System.out.println("Transaction @ " + t.getTimestamp());
+		logger.log(t);
+		
+		try {
+			Thread.currentThread();
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Transaction y = new Transaction(21, PaymentMethod.COIN, true);
+		System.out.println("Transaction @ " + y.getTimestamp());
+		logger.log(y);
+		
+		while(logger.getLocalLog().getTransactionsInLocalLog() > 0){
+			
+		}
+	}
+	
+	@Test
+	public void DailyLoggerTestBadHour(){
+		logger = new Logger(RIFFFISH_API_KEY, new LogDate(LoggingType.DAILY, this.day, 45, this.minute + 1), 4);
+		
+		Transaction t = new Transaction(21, PaymentMethod.COIN, true);
+		System.out.println("Transaction @ " + t.getTimestamp());
+		logger.log(t);
+		
+		try {
+			Thread.currentThread();
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Transaction y = new Transaction(21, PaymentMethod.COIN, true);
+		System.out.println("Transaction @ " + y.getTimestamp());
+		logger.log(y);
+		
+		while(logger.getLocalLog().getTransactionsInLocalLog() > 0){
+			
+		}
+	}
 }
