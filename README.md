@@ -2,20 +2,6 @@ Note: In the event the website is removed you can host your own from the code lo
 
 The code will then need to be modified to point at the new host
 
-# Java SDK (v1.2.0)
-
-**Grab your API key from the [profile page](http://rifffish.com/profile). You can [create an account](http://rifffish.com/users/sign_up) for free!**
-
-## Getting Started
-
-- [Download the latest version of the SDK](https://github.com/tamcgoey/rifffish-developer/blob/master/sdk_java/releases/rifffish-1.2.0.jar?raw=true) (v1.2.0)
-
-
-- Download our Dependencies - [gson v2.3.1](https://github.com/tamcgoey/rifffish-developer/blob/master/sdk_java/releases/dependencies/gson-2.3.1.jar?raw=true) & [retrofit v1.9.0](https://github.com/tamcgoey/rifffish-developer/blob/master/sdk_java/releases/dependencies/retrofit-1.9.0.jar?raw=true)
-
-- [Download the test project (outdated)](https://github.com/tamcgoey/rifffish-developer/blob/master/sdk_java/RifffishIntegrationExample.zip?raw=true) (eclipse project) 
-
-
 ## Quick Example
 
 ```java
