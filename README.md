@@ -1,3 +1,5 @@
+Note: In the event the website is removed you can host your own from the code located at: https://bitbucket.org/jimmy-the-eek/database
+
 # Java SDK (v1.2.0)
 
 **Grab your API key from the [profile page](http://rifffish.com/profile). You can [create an account](http://rifffish.com/users/sign_up) for free!**
