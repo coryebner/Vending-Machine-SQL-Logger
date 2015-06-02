@@ -1,6 +1,8 @@
-Note: Note: The website where this logger connected to was removed. You can host your own from the code located at: https://bitbucket.org/jimmy-the-eek/database
+Note: The website where this logger connected to was removed. You can host your own from the code located at: https://bitbucket.org/jimmy-the-eek/database
 
 The code will then need to be modified to point at the new host
+
+Machines always record details of each transaction (completed or aborted) internally. Technicians can download this data when servicing the machine. For internet-enabled machines, the data will also be transmitted to a central server according to the chosen scheme: (a) after each transaction; (b) after a pre-specified number of successful transactions; or (c) on a fixed schedule. Internet-enabled machines will always report problems immediately.
 
 ## Quick Example
 
